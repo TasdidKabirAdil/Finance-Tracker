@@ -45,3 +45,17 @@ export const CONFIRM_PASSWORD = gql`
         confirmResetPassword(token: $token, newPassword: $newPassword)
     }
 `
+
+export const UPDATE_USER = gql`
+    mutation UpdateProfile($updateProfileId: ID!, $name: String, $estimatedMonthlyIncome: Float, $address: String, $country: String, $currency: String) {
+        updateProfile(id: $updateProfileId, name: $name, estimatedMonthlyIncome: $estimatedMonthlyIncome, address: $address, country: $country, currency: $currency) {
+            id
+            name
+            estimatedMonthlyIncome
+            address
+            country
+            currency
+            updatedAt
+        }
+    }
+`

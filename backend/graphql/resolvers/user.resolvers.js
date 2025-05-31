@@ -28,7 +28,15 @@ const userResolver = {
                 }
                 return {
                     id: user._id.toString(),
-                    ...user.toObject()
+                    name: user.name,
+                    email: user.email,
+                    estimatedMonthlyIncome: user.estimatedMonthlyIncome,
+                    address: user.address,
+                    country: user.country,
+                    currency: user.currency,
+                    verified: user.verified,
+                    createdAt: user.createdAt.toISOString(),
+                    updatedAt: user.updatedAt.toISOString()
                 }
             } catch (error) {
                 console.error(`Error fetching user with ${id}`, error)
@@ -167,6 +175,27 @@ const userResolver = {
             await user.save()
 
             return true
+        },
+
+        updateProfile: async(_, { id, name, estimatedMonthlyIncome, address, country, currency }) => {
+            try {
+                const updatedUser = await User.findByIdAndUpdate(id, { name, estimatedMonthlyIncome, address, country, currency }, { new: true })
+                if (!updatedUser) {
+                    throw new Error(`Updating user with ${id} not found`)
+                }
+                return {
+                    id: updatedUser._id.toString(),
+                    name: updatedUser.name,
+                    estimatedMonthlyIncome: updatedUser.estimatedMonthlyIncome,
+                    address: updatedUser.address,
+                    country: updatedUser.country,
+                    currency: updatedUser.currency,
+                    updatedAt: updatedUser.updatedAt.toISOString()
+                }
+            } catch (err) {
+                console.error("Error updating user.", err)
+                throw new Error(err.message)
+            }
         }
     }
 }

@@ -10,6 +10,8 @@ const userSchema = mongoose.Schema({
     verificationExpires: { type: Date, default: null },
     resetPwdToken: { type: String, default: null },
     resetPwdExpires: { type: Date, default: null },
+    address: { type: String, default: null },
+    country: { type: String, default: null },
     currency: { type: String, default: 'CAD' },
 }, { timestamps: true })
 

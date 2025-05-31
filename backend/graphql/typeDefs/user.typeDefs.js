@@ -10,6 +10,8 @@ const userTypeDefs = `#graphql
         verificationExpires: String
         resetPwdToken: String
         resetPwdExpires: String
+        address: String
+        country: String
         currency: String
         createdAt: String
         updatedAt: String
@@ -29,10 +31,20 @@ const userTypeDefs = `#graphql
             estimatedMonthlyIncome: Float!
             currency: String
         ): User
+
         verifyEmail(token: String!): Boolean
         resendVerificationEmail(email: String!): Boolean
         resetPassword(email: String!): Boolean
         confirmResetPassword(token: String!, newPassword: String!): Boolean
+
+        updateProfile(
+            id: ID!
+            name: String
+            estimatedMonthlyIncome: Float     
+            address: String
+            country: String
+            currency: String
+        ) : User
     }
 
     type AuthPayload {
