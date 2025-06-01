@@ -3,10 +3,13 @@ const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const { ApolloServer } = require('@apollo/server');
+const { mergeTypeDefs, mergeResolvers } = require('@graphql-tools/merge')
 const { expressMiddleware } = require('@apollo/server/express4')
 const configureMongoose = require('./configs/mongoose');
-const typeDefs = require('./graphql/typeDefs/user.typeDefs')
-const resolvers = require('./graphql/resolvers/user.resolvers')
+const userTypeDefs = require('./graphql/typeDefs/user.typeDefs')
+const userResolvers = require('./graphql/resolvers/user.resolvers')
+const expenseTypeDefs = require('./graphql/typeDefs/expense.typeDefs')
+const expenseResolvers = require('./graphql/resolvers/expense.resolvers')
 const authRoutes = require('./auth/auth')
 
 const startServer = async () => {
@@ -21,6 +24,9 @@ const startServer = async () => {
     app.use(cookieParser());
     app.use(express.json());
     app.use('/', authRoutes);
+    
+    const typeDefs = mergeTypeDefs([userTypeDefs, expenseTypeDefs])
+    const resolvers = mergeResolvers([userResolvers, expenseResolvers])
     const apolloServer = new ApolloServer({ typeDefs, resolvers });
     await apolloServer.start();
 

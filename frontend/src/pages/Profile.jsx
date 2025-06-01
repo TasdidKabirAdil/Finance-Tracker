@@ -43,7 +43,10 @@ function Profile() {
         try {
             await updateUser({ variables: { updateProfileId: id, ...updateForm } })
             setMsg("Profile Information Updated")
-            setTimeout(() => setShowModal(false), 2000)
+            setTimeout(() => {
+                setShowModal(false)
+                setMsg(null)
+            }, 2000)
         } catch (err) {
             console.log(err.message)
         }
@@ -58,7 +61,7 @@ function Profile() {
                 <h1>Personal Profile</h1>
                 <p>Full Name: {userData.user.name}</p>
                 <p>Email: {userData.user.email}</p>
-                <p>Monthly Income: {userData.user.estimatedMonthlyIncome} {userData.user.currency}</p>
+                <p>Monthly Income: {userData.user.estimatedMonthlyIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })} {userData.user.currency}</p>
                 <p>Address: {userData.user.address ? userData.user.address : 'Not yet selected'}</p>
                 <p>Country: {userData.user.country ? userData.user.country : 'Not yet selected'}</p>
                 <p>{userData.user.verified === true ? "Verified User" : "Unverified User"}</p>
@@ -68,14 +71,14 @@ function Profile() {
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <div className={styles.updateForm}>
-                        <h2 style={{textAlign: 'center'}}>Edit Profile</h2>
-                        {msg && <p>{msg}</p>}
+                        <h2 style={{ textAlign: 'center' }}>Edit Profile</h2>
+                        {msg && <p className={styles.success}>{msg}</p>}
                         <form onSubmit={handleUpdate}>
                             <div className={styles.formRow}>
                                 <label htmlFor="name">Name: </label>
                                 <input type="text" name="name" value={updateForm.name} onChange={handleChange} required />
                             </div>
-                            <div className={styles.formRow}> 
+                            <div className={styles.formRow}>
                                 <label htmlFor="estimatedMonthlyIncome">Monthly Income: </label>
                                 <input type="number" name="estimatedMonthlyIncome" value={updateForm.estimatedMonthlyIncome} onChange={handleChange} required />
                             </div>
