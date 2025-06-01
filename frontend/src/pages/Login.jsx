@@ -42,7 +42,7 @@ function Login() {
                 localStorage.setItem("id", data.login.user.id)
                 localStorage.setItem("name", data.login.user.name)
                 localStorage.setItem("token", data.login.token)
-                navigate(`/profile/${data.login.user.id}`)
+                navigate(`/dashboard`)
             }
         } catch (err) {
             if (err.message === `User with ${email} doesn't exist`) {

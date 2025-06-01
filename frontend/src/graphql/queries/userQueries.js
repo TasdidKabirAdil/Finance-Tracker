@@ -16,3 +16,11 @@ export const GET_USER = gql`
         }
     }
 `
+
+export const GET_USER_CURRENCY = gql`
+    query User($userId: ID!) {
+        user(id: $userId) {
+            currency
+        }
+    }
+`
