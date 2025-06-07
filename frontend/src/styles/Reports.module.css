@@ -1,0 +1,25 @@
+.reportsHolder {
+    width: 100%;
+    
+}
+
+.report {
+    background: rgb(124, 124, 124);
+    margin-bottom: 2%;
+    border-radius: 20px;
+    padding: 3%;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 2%;
+}
+
+h2 {
+    text-align: center;
+}
+
+
+.reportsHolder li {
+    list-style: none;
+}

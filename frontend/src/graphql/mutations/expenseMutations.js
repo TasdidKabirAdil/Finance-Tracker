@@ -23,3 +23,12 @@ export const DELETE_EXPENSE = gql`
         }
     }
 `
+
+export const ACKNOWLEDGE_REPORT = gql`
+    mutation UpdateAcknowledge($updateAcknowledgeId: ID!, $acknowledged: Boolean!) {
+        updateAcknowledge(id: $updateAcknowledgeId, acknowledged: $acknowledged) {
+            acknowledged
+            id
+        }
+    }
+`

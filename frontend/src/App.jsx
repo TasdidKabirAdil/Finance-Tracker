@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
 import Dashboard from "./pages/Dashboard";
+import Reports from "./pages/Reports";
 import ResetPassword from './pages/ResetPassword';
 import PrivateRoute from './components/PrivateRoute'
 
@@ -22,6 +23,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/reports" element={<Reports />} />
           </Route>
         </Route>
       </Routes>
