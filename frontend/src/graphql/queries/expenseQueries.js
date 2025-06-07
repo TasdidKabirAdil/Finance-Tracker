@@ -31,3 +31,40 @@ export const GET_TOTAL_EXPENSE = gql`
         totalMonthlyExpense(userId: $userId, targetMonth: $targetMonth)
     }
 `
+
+export const GET_REPORTS = gql`
+    query MonthlyReports($userId: ID!) {
+        monthlyReports(userId: $userId) {
+            id
+            userId
+            targetMonth
+            totalExpense
+            savedAmount
+            topCategory
+            spendingByCategory {
+                category
+                amount
+            }
+            spendingVsAverage
+        }
+    }
+`
+
+export const GET_REPORT = gql`
+    query MonthlyReport($userId: ID!, $targetMonth: String!) {
+        monthlyReport(userId: $userId, targetMonth: $targetMonth) {
+            id
+            userId
+            targetMonth
+            totalExpense
+            savedAmount
+            topCategory
+            spendingByCategory {
+                amount
+                category
+            }
+            spendingVsAverage
+            acknowledged
+        }
+    }
+`

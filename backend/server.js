@@ -1,4 +1,5 @@
-require('dotenv').config(); // Load environment variables
+require('dotenv').config();
+require('./utils/reportScheduler');
 const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
