@@ -1,56 +1,223 @@
-.expense {
-  width: 550px;
+.homeContainer {
+  max-width: 1300px;
+  width: 100%;
+  margin: auto;
+  padding: 2% 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.homeContainer h1:first-child {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.homeContainer p {
+  font-size: clamp(0.7rem, 3vw, 0.9rem);
+}
+
+.firstP {
+  font-size: clamp(0.7rem, 3vw, 0.9rem);
+  font-style: italic;
+  color: rgb(154, 154, 154);
+}
+
+.expenseWrapper {
+  container-type: inline-size;
+  min-width: 350px;
+  padding: 20px 60px;
+  margin: 2% 0;
+  background-color: #0033332c;
+  border-radius: 10px;
 }
 
 .head {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2%;
+}
+
+.filters {
+  display: flex;
   align-items: center;
-  margin-bottom: 5%;
+  gap: 10px;
+}
+
+.filterContainer1 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.filterContainer2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.filters p {
+  min-width: 62px;
+}
+
+.monthInput {
+  max-width: 120px;
+  height: 33px;
+  width: 100%;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-bottom: 1px solid #008080;
+  border-radius: 4px;
+  color: white;
+  font-family: 'Sansation', sans-serif;
+  font-size: clamp(0.7rem, 3vw, 0.8rem);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.monthInput::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+
+.filters input:hover,
+.styledTable input:hover {
+  border-color: #4bb692;
 }
 
 .tableContainer {
   position: relative;
   display: inline-block;
+  width: 100%;
 }
 
-table {
-    border: 1px solid black;
-    border-collapse: collapse;
+.styledTable {
+  width: 100%;
+  border-collapse: collapse;
+  caret-color: transparent;
 }
 
-thead {
-    text-align: left;
+.styledTable thead tr {
+  text-align: left;
+  background-color: #008080;
 }
 
-th, td {
-  padding: 10px;
-  width: 135px;
+.styledTable th,
+.styledTable td {
+  padding: 15px;
+  max-width: 50px;
   overflow-wrap: anywhere;
   word-break: break-word;
-  border: 1px solid black;
+  font-size: clamp(0.8rem, 3vw, 1rem);
+}
+
+.styledTable tbody td {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.styledTable tbody td:nth-of-type(1) {
+  font-weight: bold;
+}
+
+.styledTable tbody td:nth-of-type(3) {
+  color: #008080;
+  font-weight: bold;
+}
+
+.styledTable tbody td:nth-of-type(4) {
+  color: #aaaaaa;
+  font-size: clamp(0.8rem, 3vw, 0.9rem);
+  font-style: italic;
+}
+
+.styledTable tbody td:nth-of-type(5) {
+  padding: 0;
+}
+
+.styledTable tbody td:last-child {
+  border-bottom: none;
+}
+
+.expenseRow:not(:last-child):nth-child(even) {
+  background: #000f0f;
+}
+
+.expenseRow:nth-last-child(2) td {
+  border-bottom: 3px solid #008080;
+}
+
+.expenseRow:not(:last-child):hover {
+  background: linear-gradient(30deg, #009191 5%, #001515 50%);
+}
+
+.styledTable thead th:first-child {
+  border-top-left-radius: 4px;
+}
+
+.styledTable thead th:last-child {
+  border-top-right-radius: 4px;
+}
+
+.styledTable input {
+  max-width: 280px;
+  width: 100%;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-bottom: 1px solid #008080;
+  border-radius: 4px;
+  color: white;
+  font-family: 'Sansation', sans-serif;
+  font-size: clamp(0.7rem, 3vw, 0.8rem);
+  caret-color: white;
+}
+
+.styledTable input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(1)
+}
+
+.styledTable select {
+  max-width: inherit;
+  max-width: 280px;
+  width: 100%;
+  padding: 6.65px 8px;
+  background: rgba(128, 128, 128, 0.237);
+  border: none;
+  border-bottom: 1px solid #008080;
+  border-radius: 4px;
+  color: white;
+}
+
+.catPill {
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: clamp(0.8rem, 3vw, 0.9rem);
 }
 
 .expenseRow {
   position: relative;
 }
 
+.editRow {
+  padding: 8px !important;
+}
+
 .actionCell {
-  border: none;    
-  padding: 0;     
-  width: 0;        
+  padding: 0;
+  width: 0;
+  min-width: 0;
   position: relative;
 }
 
 .rowActions {
   display: none;
-  position: absolute;            
-  padding-left: 20px;        
-  transform: translateY(-50%); 
-  background-color: #222;
+  position: absolute;
+  padding-left: 20px;
+  transform: translateY(-50%);
   padding: 4px;
   border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0);
 }
 
 .expenseRow:hover .rowActions {
@@ -59,23 +226,121 @@ th, td {
 
 .editRowActions {
   display: flex;
-  position: absolute;      
-  margin-left: 2px;          
-  transform: translateY(-50%); 
-  background-color: #222;
+  position: absolute;
+  margin-left: 2px;
+  transform: translateY(-50%);
   padding: 4px;
   border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0);
 }
 
-.btn {
-  position: absolute;
-  bottom: 5px;
-  right: -54px;
-  display: flex;
-  flex-direction: row;
-  background-color: #222;
-  padding: 4px;
+.tooltipWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltipText {
+  visibility: hidden;
+  width: 130px;
+  text-align: center;
+  font-size: clamp(0.7rem, 3vw, 0.8rem);
   border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  background-color: #009191;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: -4%;
+  left: 400%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltipWrapper:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
+}
+
+.addBtn {
+  display: flex;
+  background-color: transparent;
+  color: #009191;
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0);
+}
+
+.addBtn:hover {
+  background-color: #009191;
+  color: white;
+}
+
+.tickBtn {
+  display: flex;
+  color: #4bb692;
+  background: none;
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+}
+
+.tickBtn:hover {
+  color: white;
+  background-color: #4bb692;
+}
+
+.crossBtn {
+  display: flex;
+  color: red;
+  background: none;
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+}
+
+.crossBtn:hover {
+  color: white;
+  background-color: red;
+}
+
+.editBtn,
+.deleteBtn {
+  display: flex;
+  background: none;
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+}
+
+.editBtn:hover {
+  background-color: orange;
+}
+
+.deleteBtn:hover {
+  background-color: red;
+}
+
+@media (max-width: 500px) {
+  .expenseWrapper {
+    padding: 10px;
+  }
+
+  .expenseRow:hover .rowActions,
+  .editRowActions {
+    flex-direction: column;
+  }
+}
+
+@container (max-width: 750px) {
+  .head {
+    display: grid;
+    gap: 10px
+  }
+}
+
+@media (max-width: 700px) {
+  .homeContainer {
+    padding: 2% 15px;
+  }
 }

@@ -1,19 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&family=DM+Serif+Text:ital@0;1&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 .defaultMain {
-    max-width: 1280px;
-    min-height: 80vh;
-    width: 100%;
-    margin: auto;
-    padding: 5%;
-    background: rgb(40, 40, 40);
+  width: 100%;
+  min-width: 400px;
+  font-family: 'Sansation', sans-serif;
 }
 
-.loginMain {
-    max-width: 1280px;
-    width: 100%;
-    margin: auto;
-    padding: 5%;
-    background: rgb(40, 40, 40);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.layout {
+  display: grid;
+  transition: grid-template-columns 0.2s ease;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 25px;
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+}
+
+.header a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-family: 'Sansation', sans-serif;
+}
+
+.header span {
+  color: white;
+}
+
+.header a:hover {
+  color: #009191;
+}
+
+.menuBtn, .mobileMenuBtn {
+  position: sticky;
+  top: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 10px;
+  background: none;
+}
+
+.menuBtn:hover, 
+.mobileMenuBtn:hover {
+  background: #009191;
+}
+
+@media (min-width: 701px) {
+  .mobileMenuBtn {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .header {
+    padding: 15px 10px;
+  }
+  .menuBtn {
+    display: none;
+  }
 }

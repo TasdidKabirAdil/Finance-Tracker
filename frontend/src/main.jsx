@@ -5,8 +5,10 @@ import App from './App'
 import './styles/App.module.css'
 import './styles/index.module.css'
 
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: isLocal ? 'http://localhost:4000/graphql' : 'http://10.0.0.186:4000/graphql',
   cache: new InMemoryCache()
 })
 

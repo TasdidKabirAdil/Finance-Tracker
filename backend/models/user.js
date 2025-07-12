@@ -13,7 +13,15 @@ const userSchema = mongoose.Schema({
     address: { type: String, default: null },
     country: { type: String, default: null },
     currency: { type: String, default: 'CAD' },
-}, { timestamps: true })
+}, {
+    timestamps: {
+        currentTime: () => {
+            const now = new Date();
+            const offset = now.getTimezoneOffset();
+            return new Date(now.getTime() - offset * 60000);
+        }
+    }
+})
 
 const User = mongoose.model("User", userSchema)
 

@@ -1,9 +1,108 @@
 footer {
-    padding: 1rem;
-    background: #111;
+    container-type: inline-size;
+    background: black;
     color: #fff;
+}
+
+.container {
+    max-width: 2160px;
+    margin: auto;
+}
+
+.footerHolder {
+    padding: 5% 10%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+}
+
+.top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 5%;
+}
+
+.top h1 {
+    font-size: clamp(2rem, 3vw, 4.5rem);
+    font-weight: bold;
+    margin-bottom: 2%;
+}
+
+
+.top p {
+    font-weight: bold;
+    line-height: 1.5rem;
+    margin-bottom: 5%;
+}
+
+.footerBtn {
+    display: flex;
+    justify-content: right;
     align-items: center;
-    height: 300px;
+}
+
+.demoBtn {
+    background: #003333;
+    width: 280px;
+    height: 70px;
+    color: white;
+    padding: 20px 30px 20px 30px;
+    font-weight: bold;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 5px;
+    border-bottom: 4px solid white;
+
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s ease;
+}
+
+.demoBtn:hover {
+    background: #009191;
+    color: white;
+    border-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.465);
+}
+
+.bottom {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    justify-content: right;
+    align-items: center;
+}
+
+.bottom h2 {
+    font-family: 'Bruno Ace SC', san-serif;
+}
+
+.footerIcons {
+    display: flex;
+    gap: 20px;
+}
+
+.footerIcons a {
+    display: flex;
+    align-items: center;
+}
+
+.bottom p {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+@container (max-width: 900px) {
+    .top {
+        grid-template-columns: 1fr;
+    }
+
+    .footerBtn {
+        justify-content: center;
+        margin-bottom: 5%;
+    }
+
+    .bottom {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

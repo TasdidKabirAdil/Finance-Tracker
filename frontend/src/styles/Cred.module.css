@@ -1,0 +1,341 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
+
+.loginWrapper,
+.registerWrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.75fr 1.25fr;
+}
+
+.cover {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto;
+  background: #4bb692;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.svgContainer {
+  grid-column: 1;
+  grid-row: 1;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.topRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 500px;
+  height: 500px;
+}
+
+.bottomLeft {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+}
+
+.imgContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  caret-color: transparent;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.content {
+  width: 100%;
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 9999;
+}
+
+.header {
+  padding: 6% 0 0 5%;
+}
+
+.header div {
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: 'Bruno Ace SC', san-serif;
+}
+
+.btnContainer {
+  position: absolute;
+  right: 0%;
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btnContainer button {
+  background: none;
+  width: 200px;
+  padding: 20px 25px 20px 25px;
+  border: none;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: width 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.btnContainer button:hover {
+  background: #003333;
+  color: white;
+}
+
+.btnFocus {
+  background-color: rgba(255, 255, 255, 0.761);
+  border: none;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  height: 100vh;
+}
+
+.formContainer h1 {
+  color: #003333;
+  font-size: clamp(2rem, 15vw, 3rem);
+}
+
+.formTitle {
+  margin-bottom: 5%;
+  color: #353535a3;
+  text-align: center;
+  font-style: italic;
+}
+
+.registerFormTitle {
+  color: #353535a3;
+  text-align: center;
+  font-style: italic;
+}
+
+.formTitle,
+.registerFormTitle p {
+  font-size: clamp(0.8rem, 5vw, 1rem);
+}
+
+.formContainer a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #003333;
+  transition: color 0.3s ease;
+}
+
+.formContainer a:hover {
+  color: #009191;
+}
+
+.loginFormLayout,
+.registerFormLayout {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 5%;
+  width: 100%;
+  min-height: 90vh;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-bottom-left-radius: clamp(100px, 15vw, 200px);
+}
+
+.logo {
+  font-size: 5rem;
+  font-weight: bold;
+  font-family: 'Bruno Ace SC', san-serif;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  background: linear-gradient(45deg, #4bb692, #009191);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.loginForm,
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: 100%;
+  gap: 10px;
+  padding: 30px;
+}
+
+
+.inputGroup {
+  position: relative;
+  margin: 30px 0 15px 0;
+  font-family: 'Indie Flower', cursive;
+}
+
+.inputGroup input {
+  width: 100%;
+  height: 30px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #003333;
+  color: #003333;
+}
+
+.inputGroup input:focus,
+.inputGroup input:not(:placeholder-shown),
+.inputGroup input:-webkit-autofill+span {
+  outline: none;
+}
+
+.inputGroup span {
+  position: absolute;
+  left: 0;
+  top: 0px;
+  color: #003333;
+  pointer-events: none;
+  transition: 0.2s ease all;
+  font-size: clamp(0.8rem, 5vw, 1rem);
+}
+
+/* When input is focused or has text, move label up */
+.inputGroup input:focus+span,
+.inputGroup input:not(:placeholder-shown)+span {
+  top: -20px;
+  color: #009191;
+}
+
+.actionBtns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.actionBtns select {
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  color: #003333;
+  border-bottom: 2px solid #003333;
+  font-family: 'Indie Flower', cursive;
+}
+
+.actionBtns select:focus {
+  outline: none;
+}
+
+.actionBtns select option {
+  font-weight: bold;
+}
+
+.actionBtns select option:nth-child(odd) {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.actionBtns select option:nth-child(even) {
+  background-color: #ffffff;
+  color: #000;
+}
+
+.actionBtns select option:hover {
+  background-color: #009191;
+}
+
+.loginForm button,
+.registerForm button {
+  padding: 10px;
+  width: 120px;
+  color: #009191;
+  font-weight: bold;
+  font-size: clamp(0.8rem, 4vw, 1rem);
+  background: none;
+  border: 1px solid #009191;
+  border-radius: 25px;
+  box-shadow: 2px 3px 0 #009191;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.loginForm button:hover,
+.registerForm button:hover {
+  background: #009191;
+  color: white;
+  box-shadow: none;
+}
+
+.loginForm button:focus,
+.registerForm button:focus {
+  outline: none;
+}
+
+.success {
+  font-weight: bold;
+  color: #009191;
+}
+
+.warning {
+  font-weight: bold;
+  color: red;
+}
+
+@media (max-width: 785px) {
+  .btnContainer button {
+    max-width: 200px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 675px) or (max-height: 765px) {
+
+  .loginWrapper,
+  .registerWrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .cover {
+    display: none;
+  }
+
+  .logo {
+    position: relative;
+    top: 0;
+    right: 0;
+  }
+}
+
+@media(max-height: 600px) {
+  .registerFormLayout {
+    min-height: 600px;
+  }
+}
+
+@media(max-height: 500px) {
+  .loginFormLayout {
+    min-height: 400px;
+  }
+}

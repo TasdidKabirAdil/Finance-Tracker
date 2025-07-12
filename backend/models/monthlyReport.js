@@ -9,7 +9,15 @@ const monthlyReportSchema = new mongoose.Schema({
     spendingByCategory: Array,
     spendingVsAverage: Number,
     acknowledged: { type: Boolean, default: false }
-}, {timestamps: true} )
+}, {
+    timestamps: {
+        currentTime: () => {
+            const now = new Date();
+            const offset = now.getTimezoneOffset();
+            return new Date(now.getTime() - offset * 60000);
+        }
+    }
+})
 
 const MonthlyReport = mongoose.model('MonthlyReport', monthlyReportSchema)
 

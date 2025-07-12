@@ -1,76 +1,258 @@
-.profileInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.profileInfo p {
-    font-size: 1.2rem;
-}
-
-.profileInfo button {
-    width: 100px;
-    padding: 10px;
-    background: rgb(73, 73, 247);
-    color: white;
-    border: none;
-}
-
-.updateForm {
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    width: 400px;
-    gap: 10px;
-}
-
-.updateForm form {
+.homeContainer {
+  max-width: 1300px;
+  width: 100%;
+  margin: auto;
+  padding: 2% 28px;
   display: flex;
   flex-direction: column;
+}
+
+.homeContainer h1:first-child {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  margin-bottom: 5px;
+}
+
+.homeContainer p:first-of-type {
+  font-size: clamp(0.7rem, 3vw, 0.9rem);
+  font-style: italic;
+}
+
+.profileContainer {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  max-width: 1300px;
+  min-width: 340px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.barImgContainer {
+  max-width: 1300px;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.barImgContainer img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.holder {
+  padding: 2% 5%;
+  background: #4bb6920d;
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.profileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
   gap: 10px;
 }
 
-.formRow {
-  display: grid;
-  grid-template-columns: 25% 75%;
+.profileImg {
+  position: relative;
+  display: flex;
+  min-width: 5rem;
+  height: 5rem;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  background-color: #003333;
+}
+
+.profileImg h2 {
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+
+.headerText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.headerText h2 {
+  display: flex;
   align-items: center;
+  gap: 5px;
 }
 
-.updateForm label {
-    font-weight: bold;
+.btnContainer {
+  display: flex;
+  justify-content: left;
+  gap: 10px
 }
 
-.updateForm  input {
+.editBtn {
+  position: relative;
   padding: 10px;
+  width: 80px;
+  border-radius: 10px;
+  border: 1px solid #009191;
+  background: none;
+  box-shadow: 3px 3px 0 #009191;
+  color: white;
+  font-weight: bold;
+  transition: background 0.3s ease, top 0.3s ease, left 0.3s ease;
 }
 
-.updateForm select {
+.editBtn:hover {
+  background: #009191;
+  top: 3px;
+  left: 3px;
+  box-shadow: none;
+}
+
+.cancelBtn {
+  position: relative;
   padding: 10px;
+  width: 80px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 76, 76, 0.798);
+  background: none;
+  box-shadow: 3px 3px 0 rgba(255, 76, 76, 0.798);
+  color: white;
+  font-weight: bold;
+  transition: background 0.3s ease, top 0.3s ease, left 0.3s ease;
+}
+
+.cancelBtn:hover {
+  background: rgba(255, 76, 76, 0.798);
+  top: 3px;
+  left: 3px;
+  box-shadow: none;
+}
+
+.profileForm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 27vw, 500px), 1fr));
   width: 100%;
+  gap: 20px;
+  padding: 0 0 50px 0;
 }
 
-.centerItem {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.profileForm label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
 }
 
-.updateForm button {
-  padding: 10px;
-  width: 100px;
-  background: rgb(141, 210, 141);
+.profileForm input {
+  width: 100%;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.5);
   border: none;
+  border-bottom: 1px solid #008080;
+  border-radius: 4px;
+  color: white;
+  font-family: 'Sansation', sans-serif;
+  font-size: clamp(0.7rem, 3vw, 0.8rem);
 }
 
-.updateForm button:hover {
-  background: green;
+.profileForm input:hover {
+  border-bottom: 1px solid #4bb692
+}
+
+.profileForm input:focus {
+  outline: none;
+}
+
+.blurred {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.tooltipWrapper {
+  position: relative;
+  display: inline-block;
+  top: 2px;
+}
+
+.tooltipText {
+  visibility: hidden;
+  width: 60px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: normal;
+  font-style: italic;
+  border-radius: 4px;
+  background-color: #009191;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltipWrapper:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
 }
 
 .success {
-    background: rgba(9, 255, 9, 0.305);
-    width: 100%;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
+  background: #009191;
+  width: fit-content;
+  padding: 10px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
 
+.deleteBtn {
+  padding: 10px;
+  width: 120px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background: #9d1010;
+  box-shadow: 0 2px 6px black;
+  color: white;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.deleteBtn:hover {
+  background: red;
+}
+
+@media (max-width: 700px) {
+  .homeContainer {
+    padding: 2% 15px;
+  }
+}
+
+@container (max-width: 550px) {
+  .profileHeader {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
 }

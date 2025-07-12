@@ -1,0 +1,89 @@
+.homeContainer {
+  max-width: 1300px;
+  width: 100%;
+  margin: auto;
+  padding: 2% 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.homeContainer h1:first-child {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.expenseView {
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.expenseView h2 {
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+}
+
+.expenseView p {
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  line-height: 1.2rem;
+}
+
+.expViewContainer {
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(30deg, #009191 5%, #001515 50%, rgba(19, 19, 19, 0.352) 100%);
+  overflow-wrap: break-word;
+  word-break: break-word;
+  border: 1px solid #009191;
+  border-radius: 15px;
+  line-height: 2rem;
+}
+
+.responsiveIcon {
+  width: clamp(30px, 5vw, 40px);
+  height: clamp(30px, 5vw, 40px);
+}
+
+.typicalSpending {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  backdrop-filter: blur(50px);
+  box-shadow: 1px 4px 10px -3px black;
+}
+
+.belowTypical {
+  background: #009191;
+}
+
+.aboveTypical {
+  background: #ff4949a8;
+}
+
+.comparison {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.comparison div {
+  padding: 15px;
+  backdrop-filter: blur(50px);
+  border-radius: 15px;
+  box-shadow: 1px 4px 10px -3px black;
+}
+
+.loadingScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+@media (max-width: 700px) {
+  .homeContainer {
+    padding: 2% 15px;
+  }
+}

@@ -7,6 +7,11 @@ const expenseTypeDefs = `#graphql
         SUBSCRIPTION
         UTILITY
         GAMES
+        ENTERTAINMENT
+        SHOPPING
+        GIFT
+        HEALTHCARE
+        INSURANCE
     }
     
     type Expense {
@@ -20,6 +25,18 @@ const expenseTypeDefs = `#graphql
 
     type CategorySpending {
         category: String!
+        amount: Float!
+    }
+
+    type DailySpending {
+        totalDailyExpense: Float!
+        prevDayComparison: Float!
+        numberOfExpense: Int!
+        topCategory: String!
+    }
+
+    type MonthlyTotal {
+        month: String!
         amount: Float!
     }
 
@@ -38,8 +55,12 @@ const expenseTypeDefs = `#graphql
     type Query {
         expenses(userId: ID!): [Expense]
         expense(id: ID!): Expense
+        dailyExpense(userId: ID!) : DailySpending
         totalMonthlyExpense(userId: ID!, targetMonth: String!) : Float
+        categoryExpense(userId: ID!, targetMonth: String!) : [CategorySpending!]
+        monthlyTotal(userId: ID!) : [MonthlyTotal!]
         monthlyReports(userId: ID!) : [MonthlyReport]
+        typicalSpent(userId: ID!) : Float
         monthlyReport(userId: ID! targetMonth: String!) : MonthlyReport
     }
 
