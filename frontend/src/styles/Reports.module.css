@@ -1,25 +1,200 @@
-.reportsHolder {
+.homeContainer {
+    container-type: inline-size;
+    container-name: homeBox;
+    max-width: 1000px;
+    min-width: 400px;
     width: 100%;
-    
+    margin: auto;
+    padding: 2% 28px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.homeContainer h1 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.homeContainer h2 {
+    font-size: clamp(1rem, 3vw, 2rem);
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2%;
+}
+
+.tooltipWrapper {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+    top: 3px;
+}
+
+.tooltipText {
+    visibility: hidden;
+    width: 200px;
+    font-size: 0.9rem;
+    font-weight: normal;
+    font-style: italic;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #009191;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: -20%;
+    left: 130%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltipWrapper:hover .tooltipText {
+    visibility: visible;
+    opacity: 1;
+}
+
+.monthSelector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.monthSelector button {
+    background-color: transparent;
+    border: 2px solid #009191;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-size: 0.7rem;
+    transition: background 0.3s ease;
+}
+
+.monthSelector button:hover {
+    color: white;
+    background: #009191;
+}
+
+.monthSelector span {
+    font-weight: bold;
+    background: #009191;
+    border: 2px solid rgb(146, 221, 217);
+    padding: 4.5px 10px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .report {
-    background: rgb(124, 124, 124);
-    margin-bottom: 2%;
+    container-type: inline-size;
+    container-name: reportBox;
+    max-width: 1000px;
+    width: 100%;
+    margin: auto;
+    box-shadow: 0 2px 8px #009191;
+    border: 2px outset #009191;
     border-radius: 20px;
-    padding: 3%;
-    text-align: center;
 }
 
-h1 {
-    margin-bottom: 2%;
+.reportTitle {
+    background: black;
+    color: white;
+    padding: 5%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom: 10px solid #009191;
 }
 
-h2 {
-    text-align: center;
+.reportTitle h1 {
+    color: #009191;
 }
 
+.reportBody {
+    background: #f0f0ef;
+    padding: 5%;
+    color: black;
+    display: grid;
+    grid-template-columns: 1.2fr 1.8fr;
+    gap: 5%;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+}
+
+.section {
+    padding: 15px;
+    border-bottom: 1px solid black;
+    min-height: 90px;
+
+}
+
+.right .section:last-child {
+    min-height: 180px;
+}
+
+.right .section h2 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.section h1 {
+    color: #009191;
+}
+
+.iconHolder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.section2 {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+    justify-content: space-between;
+    gap: 10px;
+}
 
 .reportsHolder li {
     list-style: none;
+}
+
+@media (max-width: 700px) {
+    .homeContainer {
+        padding: 5% 15px;
+    }
+}
+
+@container reportBox (max-width: 600px) {
+    .section2 {
+        flex-direction: column;
+    }
+}
+
+@container homeBox (max-width: 700px) {
+    .tooltipText {
+        width: 100px;
+        bottom: -150%;
+    }
+}
+
+@container homeBox (max-width: 500px) {
+    .heading {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .tooltipText {
+        width: 100px;
+        bottom: -110px;
+        left: -40px;
+    }
 }

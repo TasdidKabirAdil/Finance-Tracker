@@ -45,6 +45,8 @@ const userTypeDefs = `#graphql
             country: String
             currency: String
         ) : User
+
+        deleteUser (id: ID!) : Boolean
     }
 
     type AuthPayload {

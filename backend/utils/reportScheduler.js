@@ -17,7 +17,9 @@ async function generateReport(userId, targetMonth) {
             .reduce((sum, exp) => sum + exp.amount, 0)
 
         const savedAmount = Math.max(user.estimatedMonthlyIncome - totalExpense, 0);
-        const categories = ["MISC", "FOOD", "RENT", "TRANSPORT", "SUBSCRIPTION", "UTILITY", "GAMES"]
+        const categories =
+            ['MISC', 'RENT', 'TRANSPORT', 'FOOD', 'SUBSCRIPTION',
+                'UTILITY', 'GAMES', 'ENTERTAINMENT', 'SHOPPING', 'GIFT', 'HEALTHCARE', 'INSURANCE']
         const spendingByCategory = categories
             .map(category => {
                 const amount = expenses
@@ -109,3 +111,5 @@ cron.schedule('0 0 1 * *', async () => {
         }
     }
 });
+
+module.exports = generateReport

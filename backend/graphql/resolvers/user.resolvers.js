@@ -1,4 +1,7 @@
 const User = require('../../models/user')
+const Expense = require('../../models/expense')
+const SavingGoal = require('../../models/savingGoal')
+const MonthlyReport = require('../../models/monthlyReport')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
@@ -92,7 +95,7 @@ const userResolver = {
                 const existingUser = await User.findOne({ email })
                 if (existingUser) {
                     if (!existingUser.verified) {
-                        throw new Error('User already exists but not verified')
+                        throw new Error('User already exists but not verified!')
                     }
                     throw new Error('User already exists')
                 }
@@ -177,7 +180,7 @@ const userResolver = {
             return true
         },
 
-        updateProfile: async(_, { id, name, estimatedMonthlyIncome, address, country, currency }) => {
+        updateProfile: async (_, { id, name, estimatedMonthlyIncome, address, country, currency }) => {
             try {
                 const updatedUser = await User.findByIdAndUpdate(id, { name, estimatedMonthlyIncome, address, country, currency }, { new: true })
                 if (!updatedUser) {
@@ -194,6 +197,23 @@ const userResolver = {
                 }
             } catch (err) {
                 console.error("Error updating user.", err)
+                throw new Error(err.message)
+            }
+        },
+
+        deleteUser: async (_, { id }) => {
+            try {
+                const user = await User.findByIdAndDelete(id)
+                if (!user) {
+                    throw new Error("User not found or already deleted");
+                }
+                await Expense.deleteMany({ userId: id })
+                await SavingGoal.deleteOne({ userId: id })
+                await MonthlyReport.deleteMany({ userId: id })
+
+                return true
+            } catch (err) {
+                console.error("Error deleting user.", err)
                 throw new Error(err.message)
             }
         }

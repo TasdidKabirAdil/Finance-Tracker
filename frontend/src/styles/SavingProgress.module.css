@@ -1,0 +1,353 @@
+.homeContainer {
+  max-width: 1300px;
+  min-width: 400px;
+  width: 100%;
+  margin: auto;
+  padding: 2% 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.homeContainer h1 {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.pageHeading {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 2%;
+  align-items: center;
+}
+
+.overview {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin: 3% 0;
+  height: auto;
+}
+
+.savingsWrapper {
+  container-type: inline-size;
+  padding: 2%;
+  border: 2px outset #009191;
+  border-radius: 20px;
+  background: linear-gradient(30deg, #009191 5%, #001515 50%, rgba(19, 19, 19, 0.352) 100%);
+  box-shadow: 0 2px 8px #009191;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.donutWrapper {
+  width: 400px;
+  height: 400px;
+}
+
+.mainProgress {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px black;
+}
+
+
+.mainProgress span {
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  font-style: italic;
+}
+
+.progressHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progressHeading p:first-child {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: bold;
+}
+
+.progressHeading p:last-child {
+  font-size: clamp(0.8rem, 3vw, 1rem);
+  font-weight: bold;
+}
+
+.categorySplit {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  width: 100%;
+}
+
+.categoryHolder {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  width: 100%;
+  height: fit-content;
+}
+
+.categoryProgress {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  border-radius: 20px;
+  width: 100%;
+  height: fit-content;
+  box-shadow: 0 2px 6px black;
+}
+
+.categoryProgress:hover {
+  background-color: rgba(0, 42, 39, 0.841);
+}
+
+.categoryProgress span {
+  font-size: clamp(0.7rem, 3vw, 0.9rem);
+  font-style: italic;
+}
+
+.progressBarContainer {
+  width: 100%;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.375);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 15px 0 10px 0;
+}
+
+.progressBar {
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid black;
+  transition: width 0.4s ease, background-color 0.4s ease;
+  caret-color: transparent;
+}
+
+
+.categoryHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.categoryHeading p:first-child {
+  font-size: clamp(1rem, 3vw, 1.1rem);
+  font-weight: bold;
+}
+
+.categoryHeading p:last-child {
+  font-size: clamp(0.8rem, 3vw, 0.9rem);
+  font-weight: bold;
+}
+
+.accordionContent {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  font-size: clamp(0.8rem, 3vw, 0.9rem);
+}
+
+.expenseRow {
+  display: flex;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.expenseRow:last-child {
+  border-bottom: none;
+}
+
+.noExpenses {
+  font-style: italic;
+  color: gray;
+}
+
+.progressBar.ok {
+  background-color: #009191;
+}
+
+.progressBar.warning {
+  background-color: orange;
+}
+
+.progressBar.over {
+  background-color: #ED3500;
+}
+
+.savingBtnHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.savingBtnHolder p {
+  color: #009191;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.addGoalButton {
+  align-items: center;
+  appearance: none;
+  background-clip: padding-box;
+  background-color: initial;
+  background-image: none;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-family: Eina01,sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  justify-content: center;
+  line-height: 24px;
+  margin: 0;
+  min-height: 64px;
+  outline: none;
+  overflow: visible;
+  padding: 19px 26px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: auto;
+  word-break: keep-all;
+  z-index: 0;
+}
+
+
+.addGoalButton:before,
+.addGoalButton:after {
+  border-radius: 80px;
+}
+
+.addGoalButton:before {
+  background-image: linear-gradient(92.83deg, #4bb692 0, #009191 100%);
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -2;
+}
+
+.addGoalButton:after {
+  background-color: initial;
+  background-image: linear-gradient(#009191 0, #0c0d0d 100%);
+  bottom: 4px;
+  content: "";
+  display: block;
+  left: 4px;
+  overflow: hidden;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  transition: all 100ms ease-out;
+  z-index: -1;
+}
+
+.addGoalButton:hover:not(:disabled):before {
+  background: linear-gradient(92.83deg, #009191 0%, #004747 100%);
+}
+
+.addGoalButton:hover:not(:disabled):after {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition-timing-function: ease-in;
+  opacity: 0;
+}
+
+.addGoalButton:active:not(:disabled) {
+  color: #ccc;
+}
+
+.addGoalButton:active:not(:disabled):before {
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), linear-gradient(92.83deg, #009191 0%, #004747 100%);
+}
+
+.addGoalButton:active:not(:disabled):after {
+  background-image: linear-gradient(#009191 0, #0c0d0d 100%);
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+  top: 4px;
+}
+
+.addGoalButton:disabled {
+  cursor: default;
+  opacity: .24;
+}
+
+.editBtn,
+.deleteBtn {
+  display: flex;
+  height: fit-content;
+  background: none;
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+}
+
+.editBtn:hover {
+  background-color: orange;
+}
+
+.deleteBtn:hover {
+  background-color: red;
+}
+
+@container (max-width: 1000px) {
+  .categorySplit {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 700px) {
+  .homeContainer {
+    padding: 2% 15px;
+  }
+
+  .addGoalButton {
+    padding: 19px 32px;
+  }
+}
+
+@container (max-width: 700px) {
+  .overview {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  .savingBtnHolder {
+    height: 80vh;
+  }
+}

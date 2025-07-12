@@ -7,6 +7,12 @@ const formatExpense = (expense) => ({
     ...expense.toObject()
 })
 
+const DateOffset = () => {
+    const now = new Date()
+    const offset = now.getTimezoneOffset();
+    return new Date(now.getTime() - (offset * 60 * 1000));
+}
+
 const expenseResolvers = {
     Query: {
         expenses: async (_, { userId }) => {
@@ -29,6 +35,63 @@ const expenseResolvers = {
             }
         },
 
+        dailyExpense: async (_, { userId }) => {
+            try {
+                const expenses = await Expense.find({ userId })
+
+                const today = DateOffset()
+                const yesterday = new Date(today)
+                yesterday.setDate(today.getDate() - 1)
+
+                const formattedToday = today.toISOString().slice(0, 10)
+                const formattedYesterday = yesterday.toISOString().slice(0, 10)
+
+                let totalToday = 0
+                let totalYesterday = 0
+                let expenseCount = 0
+
+                const categorySums = {}
+
+                expenses.forEach(exp => {
+                    const expDate = new Date(exp.date).toISOString().slice(0, 10)
+
+                    if (expDate === formattedToday) {
+                        totalToday += exp.amount
+                        expenseCount++
+                        if (!categorySums[exp.category]) {
+                            categorySums[exp.category] = 0
+                        }
+                        categorySums[exp.category] = (categorySums[exp.category] || 0) + exp.amount
+                    }
+
+                    if (expDate === formattedYesterday) {
+                        totalYesterday += exp.amount
+                    }
+                })
+
+                const prevDayComparison = totalYesterday - totalToday
+
+                let topCategory = ''
+                let maxSpent = 0
+                for (const [category, amount] of Object.entries(categorySums)) {
+                    if (amount > maxSpent) {
+                        maxSpent = amount
+                        topCategory = category
+                    }
+                }
+
+                return {
+                    totalDailyExpense: totalToday,
+                    prevDayComparison,
+                    numberOfExpense: expenseCount,
+                    topCategory
+                }
+            } catch (err) {
+                console.error("Failed calculating daily expense", err)
+                throw new Error(err.message)
+            }
+        },
+
         totalMonthlyExpense: async (_, { userId, targetMonth }) => {
             try {
                 const expenses = await Expense.find({ userId })
@@ -43,6 +106,127 @@ const expenseResolvers = {
             } catch (err) {
                 console.error("Failed calculating total monthy expense", err)
                 throw new Error(err.message)
+            }
+        },
+
+        categoryExpense: async (_, { userId, targetMonth }) => {
+            try {
+                const expenses = await Expense.find({ userId })
+                const categories = ['MISC', 'RENT', 'TRANSPORT', 'FOOD', 'SUBSCRIPTION', 'UTILITY', 'GAMES', 'SHOPPING', 'GIFT', 'HEALTHCARE', 'INSURANCE']
+                const categoryExpense = categories
+                    .map(category => {
+                        const amount = expenses
+                            .filter(exp => {
+                                const month = new Date(exp.date).toISOString().slice(0, 7)
+                                return exp.category === category && month === targetMonth
+                            })
+                            .reduce((sum, exp) => sum + exp.amount, 0);
+                        return { category, amount };
+                    })
+                    .filter(item => item.amount > 0);
+                return categoryExpense
+
+            } catch (err) {
+                console.error("Failed calculating categorical expense", err)
+                throw new Error(err.message)
+            }
+        },
+
+        monthlyTotal: async (_, { userId }) => {
+            try {
+                const expenses = await Expense.find({ userId })
+                if (!expenses) return []
+
+                const currentMonth = new Date().toISOString().slice(0, 7)
+                let [origYear, origMonth] = currentMonth.split("-").map(Number)
+
+                const monthDict = {
+                    1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
+                    7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'
+                }
+
+                let prevMonths = []
+                let result = []
+
+                const totalMonths = 5;
+                let month = origMonth;
+                let year = origYear;
+
+                for (let i = 0; i < totalMonths; i++) {
+                    const mm = month < 10 ? `0${month}` : month;
+
+                    prevMonths.push({
+                        key: `${year}-${mm}`,
+                        label: `${monthDict[month]}-${year}`
+                    });
+
+                    month -= 1;
+                    if (month === 0) {
+                        month = 12;
+                        year -= 1;
+                    }
+                }
+                prevMonths.reverse()
+                prevMonths.forEach((monthObj) => {
+                    const total = expenses
+                        .filter((exp) => {
+                            const expMonth = new Date(exp.date).toISOString().slice(0, 7)
+                            return expMonth === monthObj.key
+                        })
+                        .reduce((sum, exp) => sum + exp.amount, 0)
+
+                    result.push({
+                        month: monthObj.label,
+                        amount: total
+                    })
+                })
+
+                return result
+
+            } catch (err) {
+                console.error("Failed calculating monthly total", err)
+                throw new Error(err.message)
+            }
+        },
+
+        typicalSpent: async (_, { userId }) => {
+            try {
+                const expenses = await Expense.find({ userId });
+                if (!expenses || expenses.length === 0) return 0;
+
+                const currDate = DateOffset();
+                let [year, month] = [currDate.getFullYear(), currDate.getMonth() + 1];
+
+                const targetMonths = [];
+                for (let i = 1; i <= 3; i++) {
+                    month--;
+                    if (month === 0) {
+                        month = 12;
+                        year--;
+                    }
+                    const formattedMonth = month < 10 ? `0${month}` : `${month}`;
+                    targetMonths.push(`${year}-${formattedMonth}`);
+                }
+
+                const monthlySums = {};
+
+                expenses.forEach(expense => {
+                    const expenseMonth = expense.date.toISOString().slice(0, 7);
+                    if (targetMonths.includes(expenseMonth)) {
+                        monthlySums[expenseMonth] = (monthlySums[expenseMonth] || 0) + expense.amount;
+                    }
+                });
+
+                const validMonths = Object.keys(monthlySums);
+                if (validMonths.length === 0) return 0;
+
+                const total = validMonths.reduce((sum, month) => sum + monthlySums[month], 0);
+                const average = total / validMonths.length;
+
+                return average;
+            } catch (err) {
+                console.error("Failed calculating typical spending", err);
+                throw new Error(err.message);
             }
         },
 
@@ -63,7 +247,7 @@ const expenseResolvers = {
         monthlyReport: async (_, { userId, targetMonth }) => {
             try {
                 const report = await MonthlyReport.findOne({ userId, targetMonth })
-                return  {
+                return {
                     id: report._id.toString(),
                     ...report.toObject()
                 };
@@ -123,7 +307,9 @@ const expenseResolvers = {
                     .reduce((sum, exp) => sum + exp.amount, 0)
 
                 const savedAmount = Math.max(user.estimatedMonthlyIncome - totalExpense, 0);
-                const categories = ["MISC", "FOOD", "RENT", "TRANSPORT", "SUBSCRIPTION", "UTILITY", "GAMES"]
+                const categories =
+                    ['MISC', 'RENT', 'TRANSPORT', 'FOOD', 'SUBSCRIPTION',
+                        'UTILITY', 'GAMES', 'ENTERTAINMENT', 'SHOPPING', 'GIFT', 'HEALTHCARE', 'INSURANCE']
                 const spendingByCategory = categories
                     .map(category => {
                         const amount = expenses
@@ -191,12 +377,12 @@ const expenseResolvers = {
 
         updateAcknowledge: async (_, { id, acknowledged }) => {
             try {
-                const updatedReport = await MonthlyReport.findByIdAndUpdate(id, { acknowledged }, {new: true})
+                const updatedReport = await MonthlyReport.findByIdAndUpdate(id, { acknowledged }, { new: true })
                 return {
                     id: updatedReport._id.toString(),
                     acknowledged: updatedReport.acknowledged
                 };
-            } catch(err) {
+            } catch (err) {
                 throw new Error(err.message)
             }
         }

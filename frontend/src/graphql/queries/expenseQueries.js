@@ -26,9 +26,44 @@ export const GET_EXPENSE = gql`
     }
 `
 
+export const GET_DAILY_REPORT = gql`
+    query DailyExpense($userId: ID!) {
+        dailyExpense(userId: $userId) {
+            totalDailyExpense
+            prevDayComparison
+            numberOfExpense
+            topCategory
+        }
+    }
+`
+
 export const GET_TOTAL_EXPENSE = gql`
     query Query($userId: ID!, $targetMonth: String!) {
         totalMonthlyExpense(userId: $userId, targetMonth: $targetMonth)
+    }
+`
+
+export const GET_TYPICAL_SPENDING = gql`
+    query Query($userId: ID!) {
+        typicalSpent(userId: $userId)
+    }
+`
+
+export const GET_MONTHLY_CHART = gql`
+    query MonthlyTotal($userId: ID!) {
+        monthlyTotal(userId: $userId) {
+            month
+            amount
+        }
+    }
+`
+
+export const GET_CATEGORY_EXPENSE = gql`
+    query CategoryExpense($userId: ID!, $targetMonth: String!) {
+        categoryExpense(userId: $userId, targetMonth: $targetMonth) {
+            category
+            amount
+        }
     }
 `
 

@@ -1,0 +1,380 @@
+.container {
+    max-width: 2160px;
+    width: 100%;
+    margin: auto;
+}
+
+.landing {
+    container-type: inline-size;
+    margin-top: -70px;
+    padding: 80px 0;
+    background: black;
+}
+
+.landingInner {
+    max-width: 2160px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.25fr 1.75fr;
+    margin: auto;
+}
+
+.titleText {
+    width: 100%;
+    padding: 5% 10% 0 10%;
+    display: flex;
+    margin: 50px 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.titleText h1 {
+    font-size: clamp(2rem, 3vw, 4.5rem);
+    margin-bottom: 5%;
+}
+
+.titleText h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-family: 'Bruno Ace SC', san-serif;
+    margin-bottom: 10%;
+}
+
+.titleText h3 {
+    font-size: clamp(.8rem, 3vw, 1.2rem);
+    margin-bottom: 15%;
+}
+
+.registerBtn {
+    background: #003333;
+    width: 150px;
+    color: white;
+    padding: 15px 10px 15px 10px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    border-bottom: 2px solid white;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s ease;
+}
+
+.registerBtn:hover {
+    background: #009191;
+}
+
+.showcase {
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+}
+
+.showcaseImg1 {
+    position: relative;
+    top: 150px;
+    left: 60px;
+    width: 100%;
+    height: 500px;
+    max-width: 498px;
+    overflow: hidden;
+    border: 2px solid #009191;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px #009191;
+    caret-color: transparent;
+}
+
+.showcaseImg2 {
+    position: relative;
+    top: -50px;
+    left: 180px;
+    width: 100%;
+    height: 300px;
+    max-width: 595px;
+    overflow: hidden;
+    z-index: 999;
+    border: 2px solid #009191;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px #009191;
+    caret-color: transparent;
+}
+
+.showcaseImg3 {
+    position: relative;
+    top: 80px;
+    width: 100%;
+    height: 500px;
+    max-width: 265px;
+    overflow: hidden;
+    border: 2px solid #009191;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px #009191;
+    caret-color: transparent;
+}
+
+.showcase img {
+    height: 100%;
+    object-fit: contain;
+}
+
+.midSec {
+    width: 100%;
+    background: #dfe8ea;
+    display: grid;
+    grid-template-rows: auto;
+}
+
+.desc {
+    color: #003333;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 5% 2% 5%;
+    margin: 100px auto 150px;
+    display: flex;
+    text-align: center;
+}
+
+.cardHolder {
+    background: black;
+    padding: 0 8% 5% 8%;
+}
+
+.cardWrapper {
+    margin: -100px auto 50px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 50px;
+}
+
+.card {
+    min-height: 350px;
+    background-color: white;
+    color: #003333;
+    border-radius: 10px;
+    border-top-right-radius: 150px;
+    padding: 20% 10%;
+}
+
+.card h1 {
+    display: block;
+    min-height: 120px;
+    font-size: 2.5rem;
+}
+
+.cardHolder button {
+    width: 250px;
+    height: 80px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 25px;
+    align-items: center;
+}
+
+.btnHolder {
+    display: flex;
+    justify-content: center;
+}
+
+.guideSec {
+    width: 100%;
+    background: #dfe8ea;
+    display: flex;
+    flex-direction: column;
+    padding: 0 5% 5% 5%;
+}
+
+.guideSec h1 {
+    color: #003333;
+    font-size: 3rem;
+    margin: 0;
+}
+
+.heading {
+    display: flex;
+    margin: 0 auto 0 0;
+    padding: 5% 10% 0 10%;
+}
+
+.iconHolder {
+    height: 140px;
+    display: flex;
+    align-items: center;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+    padding: 0 8.5%;
+}
+
+.step {
+    display: flex;
+    margin: auto;
+    gap: 15px;
+    color: #003333;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.initial {
+    position: relative;
+    display: flex;
+    min-width: 100px;
+    height: 100px;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #003333;
+}
+
+.initial p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.step h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.imgContainer {
+    width: 100%;
+    max-width: 1200px;
+    margin: 5% auto 5% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgContainer img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0);
+}
+
+.demoBtn {
+    background: white;
+    width: 280px;
+    color: #003333;
+    padding: 20px 30px 20px 30px;
+    font-weight: bold;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 5px;
+    border-bottom: 4px solid #009191;
+    
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s ease;
+}
+
+.demoBtn:hover {
+    background: #009191;
+    color: white;
+    border-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.465);
+}
+
+@container (max-width: 1575px) {
+    .landingInner {
+        grid-template-columns: 1fr;
+    }
+
+    .titleText {
+        max-width: none;
+    }
+
+    .titleText h1 {
+        margin-bottom: 5%;
+    }
+
+    .titleText h2 {
+        margin-bottom: 5%;
+    }
+
+    .titleText h3 {
+        margin-bottom: 5%;
+    }
+}
+
+@container (max-width: 900px) {
+    .showcase {
+        min-height: 400px;
+    }
+
+    .showcaseImg1 {
+        top: 80px;
+        left: 20px;
+        max-width: 298px;
+        height: 300px;
+    }
+
+    .showcaseImg2 {
+        top: -40px;
+        left: 90px;
+        width: 100%;
+        max-width: 595px;
+        height: 180px;
+    }
+
+    .showcaseImg3 {
+        top: 40px;
+        left: -20px;
+        height: 300px;
+        max-width: 165px;
+    }
+}
+
+@container (max-width: 520px) {
+    .wrapper {
+        margin-left: 30px;
+    }
+
+    .showcaseImg1 {
+        left: 0;
+        max-width: 198px;
+        height: 200px;
+    }
+
+    .showcaseImg2 {
+        top: 0;
+        left: 50px;
+        width: 100%;
+        max-width: 395px;
+        height: 120px;
+    }
+
+    .showcaseImg3 {
+        top: 50px;
+        height: 200px;
+        max-width: 165px;
+    }
+}
+
+@media (max-width: 500px) {
+    .landing {
+        padding: 30px 0 0 0;
+    }
+}

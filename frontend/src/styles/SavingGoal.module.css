@@ -1,0 +1,258 @@
+.homeContainer {
+    max-width: 1300px;
+    width: 100%;
+    margin: auto;
+    padding: 2% 28px;
+    display: flex;
+    flex-direction: column;
+}
+
+.homeContainer h1 {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.goalContainer {
+    container-type: inline-size;
+    width: 100%;
+    border: 2px outset #009191;
+    border-radius: 20px;
+    background: linear-gradient(220deg, #009191 5%, #001515 60%, rgba(19, 19, 19, 0.352) 100%);
+    box-shadow: 0 2px 8px #009191;
+    /* background-image: url('/public/savingFormBg.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;*/
+} 
+
+.savingGoal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 5%;
+}
+
+.aiBtnContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.aiBtn {
+    padding: 20px;
+    background: #004444;
+    backdrop-filter: blur(10px);
+    box-shadow: -5px 5px 0 2px rgba(0, 0, 0, 0.671);
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    transition: background 0.3s ease;
+}
+
+.aiBtn:hover {
+    background: #009191;
+}
+
+.btnContent {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.icon {
+    color: white;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.aiBtn:hover .icon {
+    transform: rotate(360deg);
+    color: #E55050;
+}
+
+.tooltipWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltipText {
+    visibility: hidden;
+    width: 200px;
+    font-size: 0.9rem;
+    font-weight: normal;
+    font-style: italic;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #4bb692;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: -50%;
+    left: 130%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltipWrapper:hover .tooltipText {
+    visibility: visible;
+    opacity: 1;
+}
+
+.goalForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.categoryInput {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(300px, 20vw, 400px), 1fr));
+    gap: 20px;
+    padding: 20px 0 5% 0;
+    margin-bottom: 3%;
+    border-bottom: 1px solid #008080;
+    font-size: clamp(0.8rem, 3vw, 1rem);
+    font-weight: bold;
+}
+
+.categoryInput div {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    align-items: center;
+}
+
+.goalForm input {
+    min-width: 50px;
+    width: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.53);
+    backdrop-filter: blur(10px);
+    border: none;
+    border-bottom: 1px solid #008080;
+    border-radius: 4px;
+    color: white;
+}
+
+.goalForm input:hover {
+    border-color: #4bb692;
+}
+
+.submitBtn {
+    padding: 15px;
+    width: 120px;
+    background: #004949;
+    box-shadow: -3px 3px 0 2px rgba(0, 0, 0, 0.671);
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    transition: background 0.3s ease;
+}
+
+.submitBtn:hover {
+    background: #009191;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal h2 {
+    color: #009191;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+}
+
+.modal p {
+    color: white;
+    font-weight: bold;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.modalIcon {
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.modalCatDisplay {
+    display: grid;
+    width: 65%;
+    margin: auto;
+    grid-template-columns: 50% 50%;
+    place-items: center;
+}
+
+.modalCatDisplay p:last-child {
+    font-style: italic;
+    font-weight: lighter;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+.modalFooter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modalFooter p {
+    color: #009191;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.modalFooter button:nth-of-type(1) {
+    padding: 10px;
+    width: 80px;
+    background: none;
+    margin-right: 10px;
+    color: white;
+    border: 2px solid #009191;
+    border-radius: 15px;
+    transition: background 0.3s ease;
+}
+
+.modalFooter button:nth-of-type(1):hover {
+    background: #009191;
+}
+
+.modalFooter button:nth-of-type(2) {
+    width: 80px;
+    padding: 10px;
+    background: none;
+    color: white;
+    border: 2px solid rgba(255, 76, 76, 0.798);
+    border-radius: 15px;
+    transition: background 0.3s ease;
+}
+
+.modalFooter button:nth-of-type(2):hover {
+    background: rgba(255, 76, 76, 0.798);
+}
+
+@media (max-width: 700px) {
+  .homeContainer {
+    padding: 2% 15px;
+  }
+}
+
+@container (max-width: 550px) {
+    .tooltipText {
+        bottom: 130%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

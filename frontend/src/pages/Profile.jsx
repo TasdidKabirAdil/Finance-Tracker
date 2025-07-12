@@ -1,23 +1,56 @@
 import { GET_USER } from "../graphql/queries/userQueries"
-import { UPDATE_USER } from "../graphql/mutations/userMutations"
+import { UPDATE_USER, DELETE_USER } from "../graphql/mutations/userMutations"
+import { VerifiedIcon } from "../components/Icons"
 import { useEffect, useState } from "react"
 import { useQuery, useMutation } from "@apollo/client"
-import Modal from '../components/Modal'
+import { useNavigate } from "react-router-dom"
+import { CustomSelect2 } from "../components/CustomSelect"
+import Spinner from "../components/Spinner"
 import styles from '../styles/Profile.module.css'
+
 
 function Profile() {
     const id = localStorage.getItem('id')
+    const navigate = useNavigate()
     const { data: userData, loading, error } = useQuery(GET_USER, { variables: { userId: id } })
     const [updateUser] = useMutation(UPDATE_USER)
+    const [deleteUser] = useMutation(DELETE_USER)
+
     const [updateForm, setUpdateForm] = useState({
         name: '',
-        estimatedMonthlyIncome: null,
+        estimatedMonthlyIncome: '',
         address: '',
         country: '',
         currency: ''
     })
-    const [showModal, setShowModal] = useState(false);
     const [msg, setMsg] = useState(null)
+
+    const [isEditable, setIsEditable] = useState(false)
+
+    const toggleEdit = () => { setIsEditable(prev => !prev) }
+
+    const formattedDate = (targetDate) => {
+        const date = new Date(targetDate);
+        const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const dayOfWeek = weekdays[date.getDay()];
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = date.toLocaleString('default', { month: 'long' });
+        const year = date.getFullYear();
+
+        return `${dayOfWeek} ${day}, ${month} ${year}`;
+    }
+
+    const countryOptions = [
+        { value: 'Canada', label: 'Canada' },
+        { value: 'USA', label: 'USA' },
+        { value: 'Bangladesh', label: 'Bangladesh' },
+    ];
+
+    const currencyOptions = [
+        { value: 'CAD', label: 'CAD' },
+        { value: 'USD', label: 'USD' },
+        { value: 'BDT', label: 'BDT' },
+    ];
 
     useEffect(() => {
         if (userData?.user) {
@@ -38,13 +71,27 @@ function Profile() {
         setUpdateForm({ ...updateForm, [name]: name === 'estimatedMonthlyIncome' ? parseFloat(value) : value })
     }
 
+    // const handleUpdate = async (e) => {
+    //     e.preventDefault()
+    //     try {
+    //         await updateUser({ variables: { updateProfileId: id, ...updateForm } })
+    //         setMsg("Profile Information Updated")
+    //         setTimeout(() => {
+    //             setShowModal(false)
+    //             setMsg(null)
+    //         }, 2000)
+    //     } catch (err) {
+    //         console.log(err.message)
+    //     }
+    // }
+
     const handleUpdate = async (e) => {
         e.preventDefault()
         try {
             await updateUser({ variables: { updateProfileId: id, ...updateForm } })
             setMsg("Profile Information Updated")
+            setIsEditable(false)
             setTimeout(() => {
-                setShowModal(false)
                 setMsg(null)
             }, 2000)
         } catch (err) {
@@ -52,64 +99,119 @@ function Profile() {
         }
     }
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error.message}</p>
+    const handleDelete = async (e) => {
+        e.preventDefault()
+        try {
+            const ok = window.confirm('Are you sure you want to delete your account?')
+            if (!ok) return
+            await deleteUser({ variables: { deleteUserId: id } })
+            localStorage.clear()
+            alert('Your account has been deleted!')
+            navigate('/')
+        } catch (err) {
+            console.log(err.message)
+        }
+    }
+
+    if (loading) return <Spinner />
 
     return (
-        <>
-            <div className={styles.profileInfo}>
-                <h1>Personal Profile</h1>
-                <p>Full Name: {userData.user.name}</p>
-                <p>Email: {userData.user.email}</p>
-                <p>Monthly Income: {userData.user.estimatedMonthlyIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })} {userData.user.currency}</p>
-                <p>Address: {userData.user.address ? userData.user.address : 'Not yet selected'}</p>
-                <p>Country: {userData.user.country ? userData.user.country : 'Not yet selected'}</p>
-                <p>{userData.user.verified === true ? "Verified User" : "Unverified User"}</p>
-                <button onClick={() => setShowModal(true)}>Edit Profile</button>
-            </div>
+        <div className={styles.homeContainer}>
+            <h1>Welcome {userData.user.name.split(' ')[0]}</h1>
+            <p style={{ marginBottom: '3%' }}>{formattedDate(userData.user.createdAt)}</p>
+            <div className={styles.profileContainer}>
+                <div className={styles.barImgContainer}><img src="/public/profileheader.jpg" /></div>
 
-            {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
-                    <div className={styles.updateForm}>
-                        <h2 style={{ textAlign: 'center' }}>Edit Profile</h2>
-                        {msg && <p className={styles.success}>{msg}</p>}
-                        <form onSubmit={handleUpdate}>
-                            <div className={styles.formRow}>
-                                <label htmlFor="name">Name: </label>
-                                <input type="text" name="name" value={updateForm.name} onChange={handleChange} required />
+                <div className={styles.holder}>
+                    <div className={styles.profileHeader}>
+                        <div className={styles.wrapper}>
+                            <div className={styles.profileImg}>
+                                <h2>{userData.user.name.charAt(0)}</h2>
                             </div>
-                            <div className={styles.formRow}>
-                                <label htmlFor="estimatedMonthlyIncome">Monthly Income: </label>
-                                <input type="number" name="estimatedMonthlyIncome" value={updateForm.estimatedMonthlyIncome} onChange={handleChange} required />
+                            <div className={styles.headerText}>
+                                <h2>{userData.user.name}
+                                    <div className={styles.tooltipWrapper}>
+                                        <VerifiedIcon size={20} color="#009191" />
+                                        <span className={styles.tooltipText}>Verified</span>
+                                    </div>
+                                </h2>
+                                <p>{userData.user.email}</p>
                             </div>
-                            <div className={styles.formRow}>
-                                <label htmlFor="address">Address: </label>
-                                <input type="text" name="address" value={updateForm.address} onChange={handleChange} required />
+                        </div>
+                        {!isEditable ? (
+                            <button className={styles.editBtn} onClick={toggleEdit}>Edit</button>
+                        ) : (
+                            <div className={styles.btnContainer}>
+                                <button className={styles.editBtn} type="submit" form="profileForm">Update</button>
+                                <button className={styles.cancelBtn} onClick={toggleEdit}>Cancel</button>
                             </div>
-                            <div className={styles.formRow}>
-                                <label htmlFor="country">Country: </label>
-                                <select name="country" value={updateForm.country} onChange={handleChange} required >
-                                    <option value="" disabled>Select Country</option>
-                                    <option value="Canada">Canada</option>
-                                    <option value="USA">USA</option>
-                                    <option value="Bangladesh">Bangladesh</option>
-                                </select>
-                            </div>
-                            <div className={styles.formRow}>
-                                <label htmlFor="currency">Currency: </label>
-                                <select name="currency" value={updateForm.currency} onChange={handleChange} required >
-                                    <option value="" disabled>Select Currency</option>
-                                    <option value="CAD">CAD</option>
-                                    <option value="USD">USD</option>
-                                    <option value="BDT">BDT</option>
-                                </select>
-                            </div>
-                            <div className={styles.centerItem}><button type="submit">Update</button></div>
-                        </form>
+                        )}
                     </div>
-                </Modal>
-            )}
-        </>
+
+                    {msg && <p className={styles.success}>{msg}</p>}
+
+                    <form id="profileForm" className={styles.profileForm} onSubmit={handleUpdate}>
+                        <div>
+                            <label htmlFor="name">Full Name</label>
+                            <input type="text" name="name"
+                                value={updateForm.name}
+                                onChange={handleChange}
+                                className={!isEditable ? styles.blurred : ''}
+                                disabled={!isEditable}
+                                required={isEditable} />
+                        </div>
+                        <div>
+                            <label htmlFor="estimatedMonthlyIncome">Monthly Income</label>
+                            <input type="number" name="estimatedMonthlyIncome"
+                                value={updateForm.estimatedMonthlyIncome}
+                                onChange={handleChange}
+                                className={!isEditable ? styles.blurred : ''}
+                                disabled={!isEditable}
+                                required={isEditable} />
+                        </div>
+                        <div>
+                            <label htmlFor="address">Address</label>
+                            <input type="text" name="address"
+                                value={updateForm.address}
+                                onChange={handleChange}
+                                className={!isEditable ? styles.blurred : ''}
+                                disabled={!isEditable}
+                                required={isEditable} />
+                        </div>
+                        <div>
+                            <label htmlFor="country">Country</label>
+                            <CustomSelect2
+                                options={countryOptions}
+                                value={updateForm.country}
+                                onChange={(val) =>
+                                    handleChange({ target: { name: 'country', value: val } })
+                                }
+                                padding={'8px'}
+                                isDisabled={!isEditable}
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="currency">Currency</label>
+                            <CustomSelect2
+                                options={currencyOptions}
+                                value={updateForm.currency}
+                                onChange={(val) =>
+                                    handleChange({ target: { name: 'currency', value: val } })
+                                }
+                                padding={'8px'}
+                                isDisabled={!isEditable}
+                            />
+                        </div>
+
+                        <div style={{transform: 'translateY(40%)'}}>
+                            <button className={styles.deleteBtn} onClick={handleDelete}>Delete Account</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
     )
 }
 

@@ -4,11 +4,15 @@
   box-sizing: border-box;
 }
 
+html,
 body {
-  margin: auto;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
   width: 100%;
+  min-height: 100vh;
+  background: #000f0f;
 }
 
-
+#root {
+  width: 100%;
+  min-height: 100%;
+}
