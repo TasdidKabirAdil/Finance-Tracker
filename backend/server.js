@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' })
 require('./utils/reportScheduler');
 const express = require('express')
 const cors = require('cors')
@@ -22,7 +22,8 @@ const startServer = async () => {
         cors({
             origin: [
                 'http://localhost:3000',
-                'https://studio.apollographql.com'],
+                'https://studio.apollographql.com',
+                'https://kaneflow.netlify.app'],
             credentials: true,
         })
     );
@@ -39,8 +40,9 @@ const startServer = async () => {
         '/graphql',
         cors({
             origin: [
-                'http://localhost:3000', 
-                'https://studio.apollographql.com'],
+                'http://localhost:3000',
+                'https://studio.apollographql.com',
+                'https://kaneflow.netlify.app/'],
             credentials: true,
         }),
         express.json(),

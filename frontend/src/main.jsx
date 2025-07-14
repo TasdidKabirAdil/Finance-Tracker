@@ -6,7 +6,7 @@ import './styles/App.module.css'
 import './styles/index.module.css'
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'https://finance-tracker-production-11b7.up.railway.app/graphql',
   cache: new InMemoryCache()
 })
 
