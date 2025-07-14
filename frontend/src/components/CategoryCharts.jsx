@@ -1,15 +1,41 @@
+// CategoryCharts.jsx (or wherever you register)
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  LineElement,
-  PointElement,
+
+  // Elements
   BarElement,
   ArcElement,
+  LineElement,
+  PointElement,
+
+  // Controllers
+  BarController,
+  LineController,
+  PieController,
+
+  // Plugins
   Title,
   Tooltip,
-  Legend
-} from 'chart.js'
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  LineElement,
+  PointElement,
+  BarController,
+  LineController,
+  PieController,
+  Title,
+  Tooltip,
+  Legend,
+);
+
 import { Bar, Pie } from 'react-chartjs-2'
 import styles from '../styles/Charts.module.css'
 import { useState } from 'react'
