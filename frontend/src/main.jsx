@@ -2,8 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import App from './App'
-import './styles/App.module.css'
-import './styles/index.module.css'
+import './styles/index.css'
 
 const client = new ApolloClient({
   uri: 'https://finance-tracker-production-11b7.up.railway.app/graphql',
