@@ -22,8 +22,7 @@ const startServer = async () => {
         cors({
             origin: [
                 'http://localhost:3000',
-                'https://studio.apollographql.com',
-                'http://10.0.0.186:3000'],
+                'https://studio.apollographql.com'],
             credentials: true,
         })
     );
@@ -41,8 +40,7 @@ const startServer = async () => {
         cors({
             origin: [
                 'http://localhost:3000', 
-                'https://studio.apollographql.com', 
-                'http://10.0.0.186:3000'],
+                'https://studio.apollographql.com'],
             credentials: true,
         }),
         express.json(),
@@ -52,7 +50,7 @@ const startServer = async () => {
     );
 
     const PORT = process.env.PORT || 4000;
-    app.listen(PORT, '0.0.0.0', () => {
+    app.listen(PORT, () => {
         console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
     });
 };

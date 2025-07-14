@@ -399,7 +399,7 @@ export const VerifiedIcon = ({ size = 24, color = '#fff' }) => (
 
 export const QsIcon = ({ size = 24, color = '#fff' }) => (
 	<svg width={size} height={size} xmlns="http://www.w3.org/2000/svg" fill={color}>
-		<path fill-rule="evenodd" clip-rule="evenodd"
+		<path fillRule="evenodd" clipRule="evenodd"
 			d="M7.5 1a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 12a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 
 		11zm1.55-8.42a1.84 1.84 0 0 0-.61-.42A2.25 2.25 0 0 0 7.53 4a2.16 2.16 0 0 
 		0-.88.17c-.239.1-.45.254-.62.45a1.89 1.89 0 0 0-.38.62 3 3 0 0 

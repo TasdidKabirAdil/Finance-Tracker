@@ -9,6 +9,7 @@
 
 .homeContainer h1 {
   font-size: clamp(1.5rem, 5vw, 2rem);
+  margin-bottom: 2%;
 }
 
 .goalContainer {
@@ -18,10 +19,6 @@
     border-radius: 20px;
     background: linear-gradient(220deg, #009191 5%, #001515 60%, rgba(19, 19, 19, 0.352) 100%);
     box-shadow: 0 2px 8px #009191;
-    /* background-image: url('/public/savingFormBg.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;*/
 } 
 
 .savingGoal {
@@ -108,11 +105,15 @@
     gap: 10px;
 }
 
+.goalForm h2 {
+    margin: 15px 0;
+}
+
 .categoryInput {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(clamp(300px, 20vw, 400px), 1fr));
     gap: 20px;
-    padding: 20px 0 5% 0;
+    padding: 0 0 5% 0;
     margin-bottom: 3%;
     border-bottom: 1px solid #008080;
     font-size: clamp(0.8rem, 3vw, 1rem);
@@ -121,7 +122,7 @@
 
 .categoryInput div {
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 35% 65%;
     align-items: center;
 }
 

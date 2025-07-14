@@ -11,7 +11,7 @@ function Home() {
             state: {
                 demo: true,
                 email: 'demo@kaneflow.com',
-                pass: 'demo1234'
+                password: 'demo1234'
             }
         })
     }
