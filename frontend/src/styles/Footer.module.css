@@ -88,7 +88,7 @@ footer {
 
 .bottom p {
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 3vw, 1.5rem);
 }
 
 @container (max-width: 900px) {

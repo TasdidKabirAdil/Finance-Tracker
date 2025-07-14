@@ -65,7 +65,6 @@ function SavingProgress() {
     }, [savingGoalData, categoryExpenseData, totalExpenseData, expensesData])
 
     useEffect(() => {
-        // fire this *after* the first render
         setMounted(true);
     }, []);
 

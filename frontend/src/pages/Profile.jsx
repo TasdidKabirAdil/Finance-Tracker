@@ -12,7 +12,7 @@ import styles from '../styles/Profile.module.css'
 function Profile() {
     const id = localStorage.getItem('id')
     const navigate = useNavigate()
-    const { data: userData, loading, error } = useQuery(GET_USER, { variables: { userId: id } })
+    const { data: userData, loading} = useQuery(GET_USER, { variables: { userId: id } })
     const [updateUser] = useMutation(UPDATE_USER)
     const [deleteUser] = useMutation(DELETE_USER)
 
@@ -24,7 +24,6 @@ function Profile() {
         currency: ''
     })
     const [msg, setMsg] = useState(null)
-
     const [isEditable, setIsEditable] = useState(false)
 
     const toggleEdit = () => { setIsEditable(prev => !prev) }

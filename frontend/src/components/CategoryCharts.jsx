@@ -99,6 +99,7 @@ export default function CategoryCharts({ categoryData, monthlyData }) {
   const pieData = {
     labels,
     datasets: [{
+      label: 'Expense',
       data: values,
       backgroundColor: backgroundColors,
       borderColor: '#222',

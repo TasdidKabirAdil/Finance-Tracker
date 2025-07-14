@@ -124,6 +124,7 @@ function Login() {
                         </form>
                     </div>
                 </div>
+                
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%'}}><a href="/register">Don’t have an account? <strong>Register</strong></a></div>
                 
             </div>
