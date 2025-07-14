@@ -11,7 +11,7 @@ router.get('/verify-email', async (req, res) => {
         })
 
         if (!user) {
-            return res.redirect('http://localhost:3000/login?verify=failed')
+            return res.redirect('https://kaneflow.netlify.app/login?verify=failed')
         }
 
         user.verified = true
@@ -19,10 +19,10 @@ router.get('/verify-email', async (req, res) => {
         user.verificationExpires = null
         await user.save()
 
-        return res.redirect('http://localhost:3000/login?verify=success')
+        return res.redirect('https://kaneflow.netlify.app/login?verify=success')
     } catch (err) {
         console.error('Email verification error:', err)
-        return res.redirect('http://localhost:3000/login?verify=error')
+        return res.redirect('https://kaneflow.netlify.app/login?verify=error')
     }
 })
 

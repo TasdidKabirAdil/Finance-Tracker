@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 
 module.exports = async function sendResetEmail(email, token) {
-  const link = `http://localhost:3000/reset-password?token=${token}`
+  const link = `https://kaneflow.netlify.app/reset-password?token=${token}`
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',

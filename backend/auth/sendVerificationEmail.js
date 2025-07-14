@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 const sendVerificationEmail = async (email, token) => {
-  const verificationLink = `http://localhost:4000/verify-email?token=${token}`
+  const verificationLink = `https://finance-tracker-production-11b7.up.railway.app/verify-email?token=${token}`
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
