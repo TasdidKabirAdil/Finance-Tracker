@@ -30,11 +30,22 @@ async function suggestThresholds({ monthlyIncome, savingAmount, categoricalThres
         "suggestedThresholds": [ { "category": string, "amount": number }, ... ],
         "recommendationNote": string
         }
-        8. If no categories are provided, return:
-        {
-        "suggestedThresholds": [],
-        "recommendationNote": "No categories provided."
-        }
+        8. If no categories are provided (new user):
+        - Generate base suggested thresholds based on standard budgeting percentages of monthly income:
+            • RENT: 30%  
+            • GROCERIES: 15%  
+            • FOOD: 10%  
+            • TRANSPORT: 10%  
+            • SUBSCRIPTION: 5%  
+            • ENTERTAINMENT: 5%  
+            • MISC: 5%  
+            • UTILITY: 10%  
+        - Compute each amount = percentage × monthlyIncome.
+        - Return:
+            {
+            "suggestedThresholds": [ { "category": string, "amount": number }, … ],
+            "recommendationNote": "Base budget suggestions generated using standard budgeting guidelines."
+            }
     `;
 
     try {
