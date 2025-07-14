@@ -30,16 +30,16 @@ function Home() {
                         <div className={styles.wrapper}>
                             <div className={styles.left}>
                                 <div className={styles.showcaseImg1}>
-                                    <img src='/public/showcase1.png'></img>
+                                    <img src='/showcase1.png'></img>
                                 </div>
 
                                 <div className={styles.showcaseImg2}>
-                                    <img src='/public/showcase2.png'></img>
+                                    <img src='/showcase2.png'></img>
                                 </div>
                             </div>
 
                             <div className={styles.showcaseImg3}>
-                                <img src='/public/showcase3.png'></img>
+                                <img src='/showcase3.png'></img>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@ function Home() {
                     </div>
 
                     <div className={styles.imgContainer}>
-                        <img src='/public/dashboard.png'></img>
+                        <img src='/dashboard.png'></img>
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'center' }}>

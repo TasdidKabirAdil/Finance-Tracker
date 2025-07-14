@@ -67,7 +67,7 @@ function Register() {
                     <svg viewBox="0 0 900 900" className={styles.bottomLeft} xmlns="http://www.w3.org/2000/svg" version="1.1">
                         <g transform="translate(0, 900)"><path d="M 0 -700 C 71.2 -633.6 142.4 -567 221.2 -534 C 300 -501 386.6 -501.2 463.8 -463.8 C 541 -426.6 609 -351.4 646.8 -267.8 C 684.6 -184.4 692.2 -92.2 700 0 L 0 0 Z" fill="#003333"></path></g>
                     </svg>
-                    <div className={styles.imgContainer}><img src='/public/bg.svg' /></div>
+                    <div className={styles.imgContainer}><img src='/bg.svg' /></div>
                 </div>
                 <div className={styles.content}>
                     <div className={styles.header}>

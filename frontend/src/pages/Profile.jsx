@@ -119,7 +119,7 @@ function Profile() {
             <h1>Welcome {userData.user.name.split(' ')[0]}</h1>
             <p style={{ marginBottom: '3%' }}>{formattedDate(userData.user.createdAt)}</p>
             <div className={styles.profileContainer}>
-                <div className={styles.barImgContainer}><img src="/public/profileheader.jpg" /></div>
+                <div className={styles.barImgContainer}><img src="/profileHeader.jpg" /></div>
 
                 <div className={styles.holder}>
                     <div className={styles.profileHeader}>
