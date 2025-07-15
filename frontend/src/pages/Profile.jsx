@@ -57,6 +57,8 @@ function Profile() {
         { value: 'BDT', label: 'BDT' },
     ];
 
+    const isDemo = id === '6871e21e774631cc34075c75'
+
     // Preload user data into form
     useEffect(() => {
         if (userData?.user) {
@@ -205,7 +207,12 @@ function Profile() {
                         </div>
 
                         <div style={{ transform: 'translateY(40%)' }}>
-                            <button className={styles.deleteBtn} onClick={handleDelete}>Delete Account</button>
+                            <button
+                                className={styles.deleteBtn}
+                                onClick={handleDelete}
+                                disabled={isDemo}
+                                title={isDemo ? "Demo account cannot be deleted" : ""}
+                            >Delete Account</button>
                         </div>
                     </form>
                 </div>
