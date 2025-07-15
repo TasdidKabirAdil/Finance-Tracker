@@ -313,14 +313,15 @@
   padding: 4px;
   border: none;
   border-radius: 4px;
+  transition: background 0.2s ease;
 }
 
 .editBtn:hover {
-  background-color: orange;
+  background: orange;
 }
 
 .deleteBtn:hover {
-  background-color: red;
+  background: red;
 }
 
 @container (max-width: 1000px) {

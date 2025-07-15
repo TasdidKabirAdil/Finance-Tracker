@@ -1,3 +1,13 @@
+.homeBg {
+    background: url("data:image/svg+xml;utf8,%3Csvg%20id='visual'%20viewBox='0%200%201920%201080'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20version='1.1'%3E%3Cdefs%3E%3ClinearGradient%20id='bgGradient'%20x1='0%25'%20y1='0%25'%20x2='100%25'%20y2='0%25'%3E%3Cstop%20offset='0%25'%20stop-color='%23000f0f'/%3E%3Cstop%20offset='100%25'%20stop-color='%23004040'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20x='0'%20y='0'%20width='1920'%20height='1080'%20fill='url(%23bgGradient)'/%3E%3Cg%20fill='%23009191'%3E%3Ccircle%20r='289'%20cx='99'%20cy='1077'/%3E%3Ccircle%20r='127'%20cx='1504'%20cy='342'/%3E%3Ccircle%20r='203'%20cx='1032'%20cy='902'/%3E%3C/g%3E%3C/svg%3E") no-repeat center center;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
 .homeContainer {
     max-width: 1300px;
     width: 100%;
@@ -8,25 +18,30 @@
 }
 
 .homeContainer h1 {
-  font-size: clamp(1.5rem, 5vw, 2rem);
-  margin-bottom: 2%;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: 2%;
+    margin-right: 3%;
+    text-align: center;
+    z-index: 1;
 }
 
 .goalContainer {
     container-type: inline-size;
     width: 100%;
-    border: 2px outset #009191;
+    /* border: 2px outset #009191; */
     border-radius: 20px;
-    background: linear-gradient(220deg, #009191 5%, #001515 60%, rgba(19, 19, 19, 0.352) 100%);
-    box-shadow: 0 2px 8px #009191;
-} 
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    background: transparent;
+    box-shadow: 0 4px 8px black;
+    z-index: 1;
+}
 
 .savingGoal {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-    padding: 5%;
 }
 
 .aiBtnContainer {
@@ -38,19 +53,21 @@
 
 .aiBtn {
     padding: 20px;
-    background: #004444;
+    background: transparent;
     backdrop-filter: blur(10px);
-    box-shadow: -5px 5px 0 2px rgba(0, 0, 0, 0.671);
+    box-shadow: 4px 4px 0 #009191;
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    border: none;
+    border: 1px solid #009191;
     border-radius: 15px;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .aiBtn:hover {
     background: #009191;
+    box-shadow: none;
+    transform: translate(4px, 4px);
 }
 
 .btnContent {
@@ -68,7 +85,6 @@
 
 .aiBtn:hover .icon {
     transform: rotate(360deg);
-    color: #E55050;
 }
 
 .tooltipWrapper {
@@ -84,7 +100,7 @@
     font-style: italic;
     text-align: center;
     border-radius: 4px;
-    background-color: #4bb692;
+    background-color: #009191;
     padding: 5px;
     position: absolute;
     z-index: 1;
@@ -145,18 +161,20 @@
 .submitBtn {
     padding: 15px;
     width: 120px;
-    background: #004949;
-    box-shadow: -3px 3px 0 2px rgba(0, 0, 0, 0.671);
+    background: none;
+    box-shadow: 4px 4px 0 #004949;
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    border: none;
+    border: 1px solid #004949;
     border-radius: 15px;
-    transition: background 0.3s ease;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .submitBtn:hover {
-    background: #009191;
+    background: #004949;
+    box-shadow: none;
+    transform: translate(4px, 4px);
 }
 
 .modal {
@@ -245,9 +263,9 @@
 }
 
 @media (max-width: 700px) {
-  .homeContainer {
-    padding: 2% 15px;
-  }
+    .homeContainer {
+        padding: 2% 15px;
+    }
 }
 
 @container (max-width: 550px) {

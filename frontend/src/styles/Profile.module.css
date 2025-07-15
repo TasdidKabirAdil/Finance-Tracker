@@ -117,14 +117,13 @@
   box-shadow: 3px 3px 0 #009191;
   color: white;
   font-weight: bold;
-  transition: background 0.3s ease, top 0.3s ease, left 0.3s ease;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .editBtn:hover {
   background: #009191;
-  top: 3px;
-  left: 3px;
   box-shadow: none;
+  transform: translate(4px, 4px);
 }
 
 .cancelBtn {
@@ -137,14 +136,13 @@
   box-shadow: 3px 3px 0 rgba(255, 76, 76, 0.798);
   color: white;
   font-weight: bold;
-  transition: background 0.3s ease, top 0.3s ease, left 0.3s ease;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .cancelBtn:hover {
   background: rgba(255, 76, 76, 0.798);
-  top: 3px;
-  left: 3px;
   box-shadow: none;
+  transform: translate(4px, 4px);
 }
 
 .profileForm {

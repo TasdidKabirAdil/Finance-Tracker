@@ -145,115 +145,118 @@ export default function SavingGoal({ editMode = false }) {
 
     // Render
     return (
-        <div className={styles.homeContainer}>
-            <h1>Monthly Saving Goals Setup</h1>
+        <>
+            <div className={styles.homeBg}></div>
+            <div className={styles.homeContainer}>
+                <h1>Monthly Saving Goals Setup</h1>
 
-            <div className={styles.goalContainer}>
-                <div className={styles.savingGoal}>
-                    {/* AI Suggest Button */}
-                    <div className={styles.aiBtnContainer}>
-                        <button
-                            className={styles.aiBtn}
-                            onClick={handleSuggestClick}
-                            disabled={suggesting}
-                        >
-                            {suggesting ? 'Loading...' : (
-                                <div className={styles.btnContent}>
-                                    <p>AI Suggestions</p>
-                                    <span className={styles.icon}>
-                                        <SparkIcon size={20} />
-                                    </span>
-                                </div>
-                            )}
-                        </button>
-                        <div className={styles.tooltipWrapper}>
-                            <QsIcon size={16} color="white" />
-                            <span className={styles.tooltipText}>
-                                Get personalized budget suggestions based on your spendings
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* Form */}
-                    <form className={styles.goalForm} onSubmit={handleSubmit}>
-                        <div>
-                            <h2>Saving Goal Amount</h2>
-                            <input
-                                type="number"
-                                name="savingAmount"
-                                value={form.savingAmount}
-                                placeholder="Saving Goal Amount"
-                                min="0"
-                                step="any"
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-
-                        <h2>Categorical Budgets</h2>
-                        <div className={styles.categoryInput}>
-                            {CATEGORIES.map((cat) => (
-                                <div key={cat}>
-                                    <label>{cat.charAt(0) + cat.slice(1).toLowerCase()}:</label>
-                                    <input
-                                        type="number"
-                                        name={cat}
-                                        value={form[cat]}
-                                        placeholder={cat}
-                                        onChange={handleChange}
-                                        min="0"
-                                        step="any"
-                                    />
-                                </div>
-                            ))}
-                        </div>
-
-                        <div style={{ textAlign: 'center' }}>
-                            <button className={styles.submitBtn} type="submit">
-                                {isEdit ? 'Update Goal' : 'Set Goal'}
-                            </button>
-                        </div>
-                    </form>
-
-                    {/* Suggestions Modal */}
-                    {showModal && (
-                        <Modal onClose={() => setShowModal(false)}>
-                            <div className={styles.modal}>
-                                {suggestionData?.suggestSavingGoals && (
-                                    <>
-                                        <h2>
-                                            {suggestionData.suggestSavingGoals.recommendationNote}
-                                        </h2>
-                                        {suggestionData.suggestSavingGoals.suggestedThresholds.map(
-                                            (t, i) => (
-                                                <div key={i} className={styles.modalCatDisplay}>
-                                                    <p>
-                                                        {t.category.charAt(0) +
-                                                            t.category.slice(1).toLowerCase()}
-                                                        :
-                                                    </p>
-                                                    <p>
-                                                        {t.amount} {userData?.user.currency}
-                                                    </p>
-                                                </div>
-                                            )
-                                        )}
-                                    </>
+                <div className={styles.goalContainer}>
+                    <div className={styles.savingGoal}>
+                        {/* AI Suggest Button */}
+                        <div className={styles.aiBtnContainer}>
+                            <button
+                                className={styles.aiBtn}
+                                onClick={handleSuggestClick}
+                                disabled={suggesting}
+                            >
+                                {suggesting ? 'Loading...' : (
+                                    <div className={styles.btnContent}>
+                                        <p>AI Suggestions</p>
+                                        <span className={styles.icon}>
+                                            <SparkIcon size={20} />
+                                        </span>
+                                    </div>
                                 )}
-                                <div className={styles.modalFooter}>
-                                    <p>
-                                        Would you like to set these as your category thresholds?
-                                    </p>
-                                    <div>
-                                        <button onClick={handleSuggestConfirm}>Confirm</button>
-                                        <button onClick={() => setShowModal(false)}>Cancel</button>
+                            </button>
+                            <div className={styles.tooltipWrapper}>
+                                <QsIcon size={16} color="white" />
+                                <span className={styles.tooltipText}>
+                                    Get personalized budget suggestions based on your spendings
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Form */}
+                        <form className={styles.goalForm} onSubmit={handleSubmit}>
+                            <div>
+                                <h2>Saving Goal Amount</h2>
+                                <input
+                                    type="number"
+                                    name="savingAmount"
+                                    value={form.savingAmount}
+                                    placeholder="Saving Goal Amount"
+                                    min="0"
+                                    step="any"
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+
+                            <h2>Categorical Budgets</h2>
+                            <div className={styles.categoryInput}>
+                                {CATEGORIES.map((cat) => (
+                                    <div key={cat}>
+                                        <label>{cat.charAt(0) + cat.slice(1).toLowerCase()}:</label>
+                                        <input
+                                            type="number"
+                                            name={cat}
+                                            value={form[cat]}
+                                            placeholder={cat}
+                                            onChange={handleChange}
+                                            min="0"
+                                            step="any"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div style={{ textAlign: 'center' }}>
+                                <button className={styles.submitBtn} type="submit">
+                                    {isEdit ? 'Update Goal' : 'Set Goal'}
+                                </button>
+                            </div>
+                        </form>
+
+                        {/* Suggestions Modal */}
+                        {showModal && (
+                            <Modal onClose={() => setShowModal(false)}>
+                                <div className={styles.modal}>
+                                    {suggestionData?.suggestSavingGoals && (
+                                        <>
+                                            <h2>
+                                                {suggestionData.suggestSavingGoals.recommendationNote}
+                                            </h2>
+                                            {suggestionData.suggestSavingGoals.suggestedThresholds.map(
+                                                (t, i) => (
+                                                    <div key={i} className={styles.modalCatDisplay}>
+                                                        <p>
+                                                            {t.category.charAt(0) +
+                                                                t.category.slice(1).toLowerCase()}
+                                                            :
+                                                        </p>
+                                                        <p>
+                                                            {t.amount} {userData?.user.currency}
+                                                        </p>
+                                                    </div>
+                                                )
+                                            )}
+                                        </>
+                                    )}
+                                    <div className={styles.modalFooter}>
+                                        <p>
+                                            Would you like to set these as your category thresholds?
+                                        </p>
+                                        <div>
+                                            <button onClick={handleSuggestConfirm}>Confirm</button>
+                                            <button onClick={() => setShowModal(false)}>Cancel</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </Modal>
-                    )}
+                            </Modal>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }

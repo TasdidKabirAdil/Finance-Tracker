@@ -59,7 +59,7 @@
 }
 
 .monthInput {
-  max-width: 120px;
+  max-width: 135px;
   height: 33px;
   width: 100%;
   padding: 8px;
@@ -237,6 +237,7 @@
 .tooltipWrapper {
   position: relative;
   display: inline-block;
+  transform: translateY(50%);
 }
 
 .tooltipText {
@@ -283,6 +284,7 @@
   padding: 4px;
   border: none;
   border-radius: 4px;
+  transition: background 0.2s ease;
 }
 
 .tickBtn:hover {
@@ -297,6 +299,7 @@
   padding: 4px;
   border: none;
   border-radius: 4px;
+  transition: background 0.2s ease;
 }
 
 .crossBtn:hover {
@@ -311,6 +314,7 @@
   padding: 4px;
   border: none;
   border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
 .editBtn:hover {
