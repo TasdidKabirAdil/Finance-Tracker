@@ -123,7 +123,7 @@ const expenseResolvers = {
         categoryExpense: async (_, { userId, targetMonth }) => {
             try {
                 const expenses = await Expense.find({ userId })
-                const categories = ['MISC', 'RENT', 'TRANSPORT', 'FOOD', 'SUBSCRIPTION', 'UTILITY', 'GAMES', 'SHOPPING', 'GIFT', 'HEALTHCARE', 'INSURANCE']
+                const categories = ['MISC', 'RENT', 'TRANSPORT', 'FOOD', 'SUBSCRIPTION', 'UTILITY', 'GAMES', 'ENTERTAINMENT', 'SHOPPING', 'GIFT', 'HEALTHCARE', 'INSURANCE']
                 const categoryExpense = categories
                     .map(category => {
                         const amount = expenses

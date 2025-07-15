@@ -53,7 +53,7 @@ function SavingProgress() {
     const filteredExpenses = (category) => {
         const today = new Date();
         return expensesData?.expenses.filter((exp) => {
-            const expDate = new Date(parseInt(exp.date, 10));
+            const expDate = new Date(parseInt(exp.date, 10) + new Date().getTimezoneOffset() * 60000);
             return category === exp.category &&
                 expDate.getFullYear() === today.getFullYear() &&
                 expDate.getMonth() === today.getMonth();
