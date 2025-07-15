@@ -14,7 +14,6 @@ import ResetPassword from './pages/ResetPassword';
 import PrivateRoute from './components/PrivateRoute'
 
 function App() {
-  const token = localStorage.getItem('token')
   return (
     <Router>
       <Routes>

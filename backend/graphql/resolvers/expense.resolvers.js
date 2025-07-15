@@ -37,60 +37,71 @@ const expenseResolvers = {
 
         dailyExpense: async (_, { userId }) => {
             try {
-                const expenses = await Expense.find({ userId })
+                // Fetch all expenses for the user
+                const expenses = await Expense.find({ userId });
 
-                const today = DateOffset()
-                const yesterday = new Date(today)
-                yesterday.setDate(today.getDate() - 1)
+                // Get today's and yesterday's date (normalized to local offset)
+                const today = DateOffset(); // Assumes helper returns local Date object
+                const yesterday = new Date(today);
+                yesterday.setDate(today.getDate() - 1);
 
-                const formattedToday = today.toISOString().slice(0, 10)
-                const formattedYesterday = yesterday.toISOString().slice(0, 10)
+                // Format dates as YYYY-MM-DD for comparison
+                const formattedToday = today.toISOString().slice(0, 10);
+                const formattedYesterday = yesterday.toISOString().slice(0, 10);
 
-                let totalToday = 0
-                let totalYesterday = 0
-                let expenseCount = 0
+                // Initialize totals and counters
+                let totalToday = 0;
+                let totalYesterday = 0;
+                let expenseCount = 0;
+                const categorySums = {};
 
-                const categorySums = {}
-
+                // Loop through all expenses and group by date/category
                 expenses.forEach(exp => {
-                    const expDate = new Date(exp.date).toISOString().slice(0, 10)
+                    const expDate = new Date(exp.date).toISOString().slice(0, 10);
 
                     if (expDate === formattedToday) {
-                        totalToday += exp.amount
-                        expenseCount++
+                        totalToday += exp.amount;
+                        expenseCount++;
+
                         if (!categorySums[exp.category]) {
-                            categorySums[exp.category] = 0
+                            categorySums[exp.category] = 0;
                         }
-                        categorySums[exp.category] = (categorySums[exp.category] || 0) + exp.amount
+
+                        categorySums[exp.category] += exp.amount;
                     }
 
                     if (expDate === formattedYesterday) {
-                        totalYesterday += exp.amount
+                        totalYesterday += exp.amount;
                     }
-                })
+                });
 
-                const prevDayComparison = totalYesterday - totalToday
+                // Calculate the change from yesterday (positive = saved more today)
+                const prevDayComparison = totalYesterday - totalToday;
 
-                let topCategory = ''
-                let maxSpent = 0
+                // Determine which category had the highest spending today
+                let topCategory = '';
+                let maxSpent = 0;
+
                 for (const [category, amount] of Object.entries(categorySums)) {
                     if (amount > maxSpent) {
-                        maxSpent = amount
-                        topCategory = category
+                        maxSpent = amount;
+                        topCategory = category;
                     }
                 }
 
+                // Return summarized daily data
                 return {
                     totalDailyExpense: totalToday,
                     prevDayComparison,
                     numberOfExpense: expenseCount,
                     topCategory
-                }
+                };
             } catch (err) {
-                console.error("Failed calculating daily expense", err)
-                throw new Error(err.message)
+                console.error("Failed calculating daily expense", err);
+                throw new Error(err.message);
             }
         },
+
 
         totalMonthlyExpense: async (_, { userId, targetMonth }) => {
             try {
@@ -134,20 +145,23 @@ const expenseResolvers = {
 
         monthlyTotal: async (_, { userId }) => {
             try {
-                const expenses = await Expense.find({ userId })
-                if (!expenses) return []
+                const expenses = await Expense.find({ userId });
+                if (!expenses) return [];
 
-                const currentMonth = new Date().toISOString().slice(0, 7)
-                let [origYear, origMonth] = currentMonth.split("-").map(Number)
+                // Get current month in YYYY-MM format
+                const currentMonth = new Date().toISOString().slice(0, 7);
+                let [origYear, origMonth] = currentMonth.split("-").map(Number);
 
+                // Map month numbers to short labels
                 const monthDict = {
                     1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
                     7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'
-                }
+                };
 
-                let prevMonths = []
-                let result = []
+                const prevMonths = [];
+                const result = [];
 
+                // Track last 5 months from current
                 const totalMonths = 5;
                 let month = origMonth;
                 let year = origYear;
@@ -156,48 +170,55 @@ const expenseResolvers = {
                     const mm = month < 10 ? `0${month}` : month;
 
                     prevMonths.push({
-                        key: `${year}-${mm}`,
-                        label: `${monthDict[month]}-${year}`
+                        key: `${year}-${mm}`, // YYYY-MM format for matching
+                        label: `${monthDict[month]}-${year}` // e.g. "Jul-2025"
                     });
 
-                    month -= 1;
+                    month--;
                     if (month === 0) {
                         month = 12;
-                        year -= 1;
+                        year--;
                     }
                 }
-                prevMonths.reverse()
+
+                prevMonths.reverse(); // Ensure oldest to newest
+
+                // Aggregate monthly totals
                 prevMonths.forEach((monthObj) => {
                     const total = expenses
                         .filter((exp) => {
-                            const expMonth = new Date(exp.date).toISOString().slice(0, 7)
-                            return expMonth === monthObj.key
+                            const expMonth = new Date(exp.date).toISOString().slice(0, 7);
+                            return expMonth === monthObj.key;
                         })
-                        .reduce((sum, exp) => sum + exp.amount, 0)
+                        .reduce((sum, exp) => sum + exp.amount, 0);
 
                     result.push({
                         month: monthObj.label,
                         amount: total
-                    })
-                })
+                    });
+                });
 
-                return result
+                return result;
 
             } catch (err) {
-                console.error("Failed calculating monthly total", err)
-                throw new Error(err.message)
+                console.error("Failed calculating monthly total", err);
+                throw new Error(err.message);
             }
         },
+
 
         typicalSpent: async (_, { userId }) => {
             try {
                 const expenses = await Expense.find({ userId });
                 if (!expenses || expenses.length === 0) return 0;
 
+                // Start from current date (with local timezone offset)
                 const currDate = DateOffset();
                 let [year, month] = [currDate.getFullYear(), currDate.getMonth() + 1];
 
                 const targetMonths = [];
+
+                // Build array of previous 3 months
                 for (let i = 1; i <= 3; i++) {
                     month--;
                     if (month === 0) {
@@ -210,6 +231,7 @@ const expenseResolvers = {
 
                 const monthlySums = {};
 
+                // Aggregate spending by month
                 expenses.forEach(expense => {
                     const expenseMonth = expense.date.toISOString().slice(0, 7);
                     if (targetMonths.includes(expenseMonth)) {
@@ -229,6 +251,7 @@ const expenseResolvers = {
                 throw new Error(err.message);
             }
         },
+
 
         monthlyReports: async (_, { userId }) => {
             try {

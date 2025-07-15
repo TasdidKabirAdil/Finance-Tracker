@@ -1,33 +1,39 @@
-import { GET_USER } from "../graphql/queries/userQueries"
-import { UPDATE_USER, DELETE_USER } from "../graphql/mutations/userMutations"
-import { VerifiedIcon } from "../components/Icons"
-import { useEffect, useState } from "react"
-import { useQuery, useMutation } from "@apollo/client"
-import { useNavigate } from "react-router-dom"
-import { CustomSelect2 } from "../components/CustomSelect"
-import Spinner from "../components/Spinner"
-import styles from '../styles/Profile.module.css'
+// GraphQL queries & mutations
+import { GET_USER } from "../graphql/queries/userQueries";
+import { UPDATE_USER, DELETE_USER } from "../graphql/mutations/userMutations";
 
+// Components & utilities
+import { VerifiedIcon } from "../components/Icons";
+import { useEffect, useState } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
+import { CustomSelect2 } from "../components/CustomSelect";
+import Spinner from "../components/Spinner";
+import styles from '../styles/Profile.module.css';
 
 function Profile() {
-    const id = localStorage.getItem('id')
-    const navigate = useNavigate()
-    const { data: userData, loading} = useQuery(GET_USER, { variables: { userId: id } })
-    const [updateUser] = useMutation(UPDATE_USER)
-    const [deleteUser] = useMutation(DELETE_USER)
+    const id = localStorage.getItem('id');
+    const navigate = useNavigate();
 
+    // GraphQL hooks
+    const { data: userData, loading } = useQuery(GET_USER, { variables: { userId: id } });
+    const [updateUser] = useMutation(UPDATE_USER);
+    const [deleteUser] = useMutation(DELETE_USER);
+
+    // Form and state management
     const [updateForm, setUpdateForm] = useState({
         name: '',
         estimatedMonthlyIncome: '',
         address: '',
         country: '',
         currency: ''
-    })
-    const [msg, setMsg] = useState(null)
-    const [isEditable, setIsEditable] = useState(false)
+    });
+    const [msg, setMsg] = useState(null);
+    const [isEditable, setIsEditable] = useState(false);
 
-    const toggleEdit = () => { setIsEditable(prev => !prev) }
+    const toggleEdit = () => setIsEditable(prev => !prev);
 
+    // Format createdAt into readable string
     const formattedDate = (targetDate) => {
         const date = new Date(targetDate);
         const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -35,10 +41,10 @@ function Profile() {
         const day = String(date.getDate()).padStart(2, '0');
         const month = date.toLocaleString('default', { month: 'long' });
         const year = date.getFullYear();
-
         return `${dayOfWeek} ${day}, ${month} ${year}`;
-    }
+    };
 
+    // Select dropdown options
     const countryOptions = [
         { value: 'Canada', label: 'Canada' },
         { value: 'USA', label: 'USA' },
@@ -51,6 +57,7 @@ function Profile() {
         { value: 'BDT', label: 'BDT' },
     ];
 
+    // Preload user data into form
     useEffect(() => {
         if (userData?.user) {
             const { name, estimatedMonthlyIncome, address, country, currency } = userData.user;
@@ -64,64 +71,56 @@ function Profile() {
         }
     }, [userData]);
 
-
+    // Handle input changes
     const handleChange = (e) => {
-        const { name, value } = e.target
-        setUpdateForm({ ...updateForm, [name]: name === 'estimatedMonthlyIncome' ? parseFloat(value) : value })
-    }
+        const { name, value } = e.target;
+        setUpdateForm({
+            ...updateForm,
+            [name]: name === 'estimatedMonthlyIncome' ? parseFloat(value) : value
+        });
+    };
 
-    // const handleUpdate = async (e) => {
-    //     e.preventDefault()
-    //     try {
-    //         await updateUser({ variables: { updateProfileId: id, ...updateForm } })
-    //         setMsg("Profile Information Updated")
-    //         setTimeout(() => {
-    //             setShowModal(false)
-    //             setMsg(null)
-    //         }, 2000)
-    //     } catch (err) {
-    //         console.log(err.message)
-    //     }
-    // }
-
+    // Submit updated profile data
     const handleUpdate = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            await updateUser({ variables: { updateProfileId: id, ...updateForm } })
-            setMsg("Profile Information Updated")
-            setIsEditable(false)
-            setTimeout(() => {
-                setMsg(null)
-            }, 2000)
+            await updateUser({ variables: { updateProfileId: id, ...updateForm } });
+            setMsg("Profile Information Updated");
+            setIsEditable(false);
+            setTimeout(() => setMsg(null), 2000);
         } catch (err) {
-            console.log(err.message)
+            console.log(err.message);
         }
-    }
+    };
 
+    // Delete user account
     const handleDelete = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            const ok = window.confirm('Are you sure you want to delete your account?')
-            if (!ok) return
-            await deleteUser({ variables: { deleteUserId: id } })
-            localStorage.clear()
-            alert('Your account has been deleted!')
-            navigate('/')
+            const ok = window.confirm('Are you sure you want to delete your account?');
+            if (!ok) return;
+            await deleteUser({ variables: { deleteUserId: id } });
+            localStorage.clear();
+            alert('Your account has been deleted!');
+            navigate('/');
         } catch (err) {
-            console.log(err.message)
+            console.log(err.message);
         }
-    }
+    };
 
-    if (loading) return <Spinner />
+    // Show spinner while loading
+    if (loading) return <Spinner />;
 
     return (
         <div className={styles.homeContainer}>
             <h1>Welcome {userData.user.name.split(' ')[0]}</h1>
             <p style={{ marginBottom: '3%' }}>{formattedDate(userData.user.createdAt)}</p>
+
             <div className={styles.profileContainer}>
                 <div className={styles.barImgContainer}><img src="/profileHeader.jpg" /></div>
 
                 <div className={styles.holder}>
+                    {/* Profile header with avatar, name, email, edit buttons */}
                     <div className={styles.profileHeader}>
                         <div className={styles.wrapper}>
                             <div className={styles.profileImg}>
@@ -137,6 +136,8 @@ function Profile() {
                                 <p>{userData.user.email}</p>
                             </div>
                         </div>
+
+                        {/* Edit mode buttons */}
                         {!isEditable ? (
                             <button className={styles.editBtn} onClick={toggleEdit}>Edit</button>
                         ) : (
@@ -149,6 +150,7 @@ function Profile() {
 
                     {msg && <p className={styles.success}>{msg}</p>}
 
+                    {/* Profile form */}
                     <form id="profileForm" className={styles.profileForm} onSubmit={handleUpdate}>
                         <div>
                             <label htmlFor="name">Full Name</label>
@@ -159,6 +161,7 @@ function Profile() {
                                 disabled={!isEditable}
                                 required={isEditable} />
                         </div>
+
                         <div>
                             <label htmlFor="estimatedMonthlyIncome">Monthly Income</label>
                             <input type="number" name="estimatedMonthlyIncome"
@@ -168,6 +171,7 @@ function Profile() {
                                 disabled={!isEditable}
                                 required={isEditable} />
                         </div>
+
                         <div>
                             <label htmlFor="address">Address</label>
                             <input type="text" name="address"
@@ -177,14 +181,13 @@ function Profile() {
                                 disabled={!isEditable}
                                 required={isEditable} />
                         </div>
+
                         <div>
                             <label htmlFor="country">Country</label>
                             <CustomSelect2
                                 options={countryOptions}
                                 value={updateForm.country}
-                                onChange={(val) =>
-                                    handleChange({ target: { name: 'country', value: val } })
-                                }
+                                onChange={(val) => handleChange({ target: { name: 'country', value: val } })}
                                 padding={'8px'}
                                 isDisabled={!isEditable}
                             />
@@ -195,23 +198,20 @@ function Profile() {
                             <CustomSelect2
                                 options={currencyOptions}
                                 value={updateForm.currency}
-                                onChange={(val) =>
-                                    handleChange({ target: { name: 'currency', value: val } })
-                                }
+                                onChange={(val) => handleChange({ target: { name: 'currency', value: val } })}
                                 padding={'8px'}
                                 isDisabled={!isEditable}
                             />
                         </div>
 
-                        <div style={{transform: 'translateY(40%)'}}>
+                        <div style={{ transform: 'translateY(40%)' }}>
                             <button className={styles.deleteBtn} onClick={handleDelete}>Delete Account</button>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Profile
+export default Profile;

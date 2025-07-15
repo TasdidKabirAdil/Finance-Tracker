@@ -28,7 +28,6 @@
 .goalContainer {
     container-type: inline-size;
     width: 100%;
-    /* border: 2px outset #009191; */
     border-radius: 20px;
     padding: 20px;
     backdrop-filter: blur(10px);

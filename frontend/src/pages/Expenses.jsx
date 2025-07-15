@@ -1,74 +1,54 @@
+// Hooks and GraphQL
 import { useQuery, useMutation } from '@apollo/client'
 import { useState, useEffect } from 'react'
 import { ADD_EXPENSE, UPDATE_EXPENSE, DELETE_EXPENSE } from '../graphql/mutations/expenseMutations'
 import { GET_EXPENSES, GET_EXPENSE } from '../graphql/queries/expenseQueries'
 import { GET_USER_CURRENCY } from '../graphql/queries/userQueries'
+
+// Icons & Components
 import { AddIcon, EditIcon, DeleteIcon, TickIcon, CrossIcon } from '../components/Icons'
 import { CustomSelect1, CustomSelect2 } from '../components/CustomSelect'
 import styles from '../styles/Expenses.module.css'
 import Spinner from '../components/Spinner'
 
 function Expenses() {
+    // Get user ID from localStorage
     const id = localStorage.getItem('id')
-    const categories =
-        ['MISC', 'RENT', 'TRANSPORT', 'FOOD', 'SUBSCRIPTION',
-            'UTILITY', 'GAMES', 'ENTERTAINMENT', 'SHOPPING', 'GIFT', 'HEALTHCARE', 'INSURANCE']
+
+    // Expense category options and their colors
+    const categories = ['MISC', 'RENT', 'TRANSPORT', 'FOOD', 'SUBSCRIPTION', 'UTILITY', 'GAMES', 'ENTERTAINMENT', 'SHOPPING', 'GIFT', 'HEALTHCARE', 'INSURANCE']
     const categoryColor = {
-        MISC: '#0088FE',
-        FOOD: '#FF9B45',
-        RENT: '#FFC107',
-        TRANSPORT: '#F7374F',
-        SUBSCRIPTION: '#85193C',
-        UTILITY: '#3F7D58',
-        GAMES: '#284367ff',
-        ENTERTAINMENT: '#471396',
-        SHOPPING: '#604652',
-        GIFT: '#CF0F47',
-        HEALTHCARE: '#5EABD6',
-        INSURANCE: '#06923E',
+        MISC: '#0088FE', FOOD: '#FF9B45', RENT: '#FFC107', TRANSPORT: '#F7374F',
+        SUBSCRIPTION: '#85193C', UTILITY: '#3F7D58', GAMES: '#284367ff',
+        ENTERTAINMENT: '#471396', SHOPPING: '#604652', GIFT: '#CF0F47',
+        HEALTHCARE: '#5EABD6', INSURANCE: '#06923E',
     }
 
+    // Category options with color and label formatting
     const options = categories.map((cat) => ({
         value: cat,
         label: cat.charAt(0) + cat.slice(1).toLowerCase(),
         color: categoryColor[cat],
     }))
 
-    const catSortOptions = [
-        { value: '', label: 'Category' },
-        { value: 'asc', label: 'Ascending' },
-        { value: 'desc', label: 'Descending' },
-    ]
+    // Sorting/filter dropdown options
+    const catSortOptions = [{ value: '', label: 'Category' }, { value: 'asc', label: 'Ascending' }, { value: 'desc', label: 'Descending' }]
+    const amountSortOptions = [{ value: '', label: 'Amount' }, { value: 'asc', label: 'Ascending' }, { value: 'desc', label: 'Descending' }]
+    const dateSortOptions = [{ value: '', label: 'Date' }, { value: 'asc', label: 'Ascending' }, { value: 'desc', label: 'Descending' }]
+    const filterOptions = [{ value: 'ALL', label: 'All' }, ...categories.map((cat) => ({ value: cat, label: cat.charAt(0) + cat.slice(1).toLowerCase() }))]
 
-    const amountSortOptions = [
-        { value: '', label: 'Amount' },
-        { value: 'asc', label: 'Ascending' },
-        { value: 'desc', label: 'Descending' },
-    ]
-
-    const dateSortOptions = [
-        { value: '', label: 'Date' },
-        { value: 'asc', label: 'Ascending' },
-        { value: 'desc', label: 'Descending' },
-    ]
-
-    const filterOptions = [
-        { value: 'ALL', label: 'All' },
-        ...categories.map((cat) => ({
-            value: cat,
-            label: cat.charAt(0) + cat.slice(1).toLowerCase(),
-        }))
-    ]
-
-
+    // Local ISO date helper
     const getLocalDateString = () => {
         const now = new Date();
         const offset = now.getTimezoneOffset();
         const localDate = new Date(now.getTime() - (offset * 60 * 1000));
         return localDate.toISOString()
     }
+
+    // Template object for new expenses
     const dummyExpObj = { name: '', category: 'MISC', amount: 0, date: getLocalDateString().slice(0, 10) }
 
+    // State management
     const [expenseId, setExpenseId] = useState(null)
     const [addForm, setAddForm] = useState(dummyExpObj)
     const [editForm, setEditForm] = useState(dummyExpObj)
@@ -80,18 +60,18 @@ function Expenses() {
     const [dateSort, setDateSort] = useState('')
     const [amountSort, setAmountSort] = useState('')
 
-
+    // GraphQL queries & mutations
     const { data: expensesData, loading: loadingExpenses, refetch: refetchExpenses } = useQuery(GET_EXPENSES, { variables: { userId: id } })
     const { data: expenseData } = useQuery(GET_EXPENSE, { variables: { expenseId } })
     const { data: currencyData } = useQuery(GET_USER_CURRENCY, { variables: { userId: id } })
-
-    const isLoading = loadingExpenses
 
     const [addExpense] = useMutation(ADD_EXPENSE)
     const [editExpense] = useMutation(UPDATE_EXPENSE)
     const [deleteExpense] = useMutation(DELETE_EXPENSE)
 
+    const isLoading = loadingExpenses
 
+    // Apply filters
     const filteredExpenses = expensesData?.expenses.filter((exp) => {
         const expDate = new Date(parseInt(exp.date, 10)).toISOString().slice(0, 7)
         const matchesMonth = monthFilter ? monthFilter === expDate : true
@@ -99,8 +79,8 @@ function Expenses() {
         return matchesMonth && matchesCategory
     })
 
+    // Apply sorting
     const sortedExpenses = [...(filteredExpenses || [])].sort((a, b) => {
-        // Sort by Category
         if (categorySort) {
             const valA = a.category.toLowerCase()
             const valB = b.category.toLowerCase()
@@ -108,7 +88,6 @@ function Expenses() {
             if (valA > valB) return categorySort === 'asc' ? 1 : -1
         }
 
-        // Sort by Date
         if (dateSort) {
             const valA = new Date(parseInt(a.date))
             const valB = new Date(parseInt(b.date))
@@ -116,7 +95,6 @@ function Expenses() {
             if (valA > valB) return dateSort === 'asc' ? 1 : -1
         }
 
-        // Sort by Amount
         if (amountSort) {
             if (a.amount < b.amount) return amountSort === 'asc' ? -1 : 1
             if (a.amount > b.amount) return amountSort === 'asc' ? 1 : -1
@@ -125,7 +103,7 @@ function Expenses() {
         return 0
     })
 
-
+    // Set edit form state when single expense data is fetched
     useEffect(() => {
         if (expenseData?.expense) {
             setEditForm({
@@ -137,19 +115,19 @@ function Expenses() {
         }
     }, [expenseData])
 
+    // Refresh expenses when list changes
     useEffect(() => {
         refetchExpenses()
     }, [expensesData])
 
+    // Handle input changes for both forms
     const handleChange = (e) => {
         const { name, value } = e.target
-        if (isAdding) {
-            setAddForm({ ...addForm, [name]: name === 'amount' ? parseFloat(value) : value })
-        } else {
-            setEditForm({ ...editForm, [name]: name === 'amount' ? parseFloat(value) : value })
-        }
+        const formattedValue = name === 'amount' ? parseFloat(value) : value
+        isAdding ? setAddForm({ ...addForm, [name]: formattedValue }) : setEditForm({ ...editForm, [name]: formattedValue })
     }
 
+    // Handle form submit for add or edit
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -163,18 +141,19 @@ function Expenses() {
                 await refetchExpenses()
                 setExpenseId(null)
             }
-
         } catch (err) {
             console.error(err.message)
         }
     }
 
+    // Trigger add form
     const beginAdd = () => {
         setIsAdding(true)
         setIsEditing(false)
         setExpenseId(null)
     }
 
+    // Trigger edit form
     const beginEdit = (expense) => {
         if (isAdding) {
             setAddForm(dummyExpObj)
@@ -184,16 +163,19 @@ function Expenses() {
         setIsEditing(true)
     }
 
+    // Cancel current form (add/edit)
     const handleCancel = () => {
         if (isAdding) {
             setAddForm(dummyExpObj)
             setIsAdding(false)
-        } if (isEditing) {
+        }
+        if (isEditing) {
             setIsEditing(false)
             setExpenseId(null)
         }
     }
 
+    // Delete an expense with confirmation
     const handleDeleteExpense = async (id) => {
         try {
             const ok = window.confirm('Are you sure you want to delete this expense?')
@@ -205,6 +187,7 @@ function Expenses() {
         }
     }
 
+    // Loading state
     if (isLoading) return <Spinner />
 
     return (
