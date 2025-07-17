@@ -151,7 +151,7 @@ function SavingProgress() {
                                 <div className={styles.categoryHolder}>
                                     {firstHalf.map(({ category, amount: threshold }) => {
                                         const spent = categoryExpenseData?.categoryExpense.find((c) => c.category === category)?.amount || 0;
-                                        const percentage = Math.min((spent / threshold) * 100, 100);
+                                        const percentage = (spent / threshold) * 100;
                                         const isExpanded = expandedCategory === category;
                                         const categoryExpenses = filteredExpenses(category);
 
@@ -205,7 +205,7 @@ function SavingProgress() {
                                 <div className={styles.categoryHolder}>
                                     {secondHalf.map(({ category, amount: threshold }) => {
                                         const spent = categoryExpenseData?.categoryExpense.find((c) => c.category === category)?.amount || 0;
-                                        const percentage = Math.min((spent / threshold) * 100, 100);
+                                        const percentage = (spent / threshold) * 100;
                                         const isExpanded = expandedCategory === category;
                                         const categoryExpenses = filteredExpenses(category);
 
