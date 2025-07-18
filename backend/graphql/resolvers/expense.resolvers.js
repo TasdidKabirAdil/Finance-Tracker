@@ -7,10 +7,9 @@ const formatExpense = (expense) => ({
     ...expense.toObject()
 })
 
-const DateOffset = () => {
-    const now = new Date()
-    const offset = now.getTimezoneOffset();
-    return new Date(now.getTime() - (offset * 60 * 1000));
+const DateOffset = (date = new Date()) => {
+    const offset = date.getTimezoneOffset();
+    return new Date(date.getTime() - (offset * 60000));
 }
 
 const expenseResolvers = {
