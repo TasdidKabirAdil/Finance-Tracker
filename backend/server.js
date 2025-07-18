@@ -15,9 +15,10 @@ const expenseResolvers = require('./graphql/resolvers/expense.resolvers')
 const savingGoalResolvers = require('./graphql/resolvers/savingGoal.resolvers')
 const authRoutes = require('./auth/auth')
 
-const startServer = async () => {
+const createApp = async () => {
     await configureMongoose();
     const app = express();
+    
     app.use(
         cors({
             origin: [
@@ -51,10 +52,17 @@ const startServer = async () => {
         })
     );
 
-    const PORT = process.env.PORT || 4000;
-    app.listen(PORT, () => {
-        console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
-    });
+    return app;
 };
 
-startServer();
+// Start server only when not in test environment
+if (process.env.NODE_ENV !== 'test') {
+    createApp().then(app => {
+        const PORT = process.env.PORT || 4000;
+        app.listen(PORT, () => {
+            console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
+        });
+    });
+}
+
+module.exports = createApp; 

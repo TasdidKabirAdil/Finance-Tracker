@@ -257,7 +257,7 @@ const expenseResolvers = {
             try {
                 const reports = await MonthlyReport.find({ userId })
 
-                return reports.map((report) => ({
+                return (reports ?? []).map((report) => ({
                     id: report._id.toString(),
                     ...report.toObject()
                 }));
