@@ -2,6 +2,11 @@ import Select from 'react-select'
 
 export const CustomSelect1 = ({ options, value, onChange }) => {
     const customStyles = {
+        input: (provided) => ({
+            ...provided,
+            color: 'white',
+        }),
+
         control: (provided, state) => ({
             ...provided,
             fontSize: 'clamp(0.8rem, 3vw, 0.9rem)',
@@ -66,8 +71,13 @@ export const CustomSelect1 = ({ options, value, onChange }) => {
     )
 }
 
-export const CustomSelect2 = ({ options, value, onChange, isDisabled = false, padding='0px' }) => {
+export const CustomSelect2 = ({ options, value, onChange, isDisabled = false, padding = '0px' }) => {
     const customStyles = {
+        input: (provided) => ({
+            ...provided,
+            color: 'white',
+        }),
+
         control: (provided, state) => ({
             ...provided,
             backgroundColor: 'rgba(0, 0, 0, 0.5)',

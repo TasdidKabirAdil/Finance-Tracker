@@ -55,7 +55,7 @@ const expenseTypeDefs = `#graphql
     type Query {
         expenses(userId: ID!): [Expense]
         expense(id: ID!): Expense
-        dailyExpense(userId: ID!) : DailySpending
+        dailyExpense(userId: ID!, targetDay: String!) : DailySpending
         totalMonthlyExpense(userId: ID!, targetMonth: String!) : Float
         categoryExpense(userId: ID!, targetMonth: String!) : [CategorySpending!]
         monthlyTotal(userId: ID!) : [MonthlyTotal!]

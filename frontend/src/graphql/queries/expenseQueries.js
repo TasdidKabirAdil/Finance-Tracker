@@ -27,12 +27,12 @@ export const GET_EXPENSE = gql`
 `
 
 export const GET_DAILY_REPORT = gql`
-    query DailyExpense($userId: ID!) {
-        dailyExpense(userId: $userId) {
+    query DailyExpense($userId: ID!, $targetDay: String!) {
+        dailyExpense(userId: $userId, targetDay: $targetDay) {
             totalDailyExpense
             prevDayComparison
-            numberOfExpense
             topCategory
+            numberOfExpense
         }
     }
 `

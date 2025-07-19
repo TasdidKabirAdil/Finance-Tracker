@@ -26,10 +26,18 @@ export default function Dashboard() {
     const userId = localStorage.getItem('id')
     const targetMonth = new Date().toISOString().slice(0, 7)
 
+    // Local ISO date helper
+    const todayISO = useMemo(() => {
+        const now = new Date()
+        const offset = now.getTimezoneOffset()
+        const localDate = new Date(now.getTime() - offset * 60 * 1000)
+        return localDate.toISOString()
+    }, [])
+
     // GraphQL data
     const { data: currencyData } = useQuery(GET_USER_CURRENCY, { variables: { userId } })
     const { data: totalData, refetch: refetchTotalData, loading: loadingTotalData } = useQuery(GET_TOTAL_EXPENSE, { variables: { userId, targetMonth } })
-    const { data: dailyReportData, refetch: refetchDailyReport, loading: loadingDailyReport } = useQuery(GET_DAILY_REPORT, { variables: { userId } })
+    const { data: dailyReportData, refetch: refetchDailyReport, loading: loadingDailyReport } = useQuery(GET_DAILY_REPORT, { variables: { userId, targetDay: todayISO } })
     const { data: categoryExpenseData, refetch: refetchCategoryExpense, loading: loadingCategoryExpense } = useQuery(GET_CATEGORY_EXPENSE, { variables: { userId, targetMonth } })
     const { data: monthlyTotalChartData, refetch: refetchMonthlyChart, loading: loadingMonthlyChart } = useQuery(GET_MONTHLY_CHART, { variables: { userId } })
     const { data: typicalSpendingData, refetch: refetchTypicalSpending, loading: loadingTypicalSpending } = useQuery(GET_TYPICAL_SPENDING, { variables: { userId } })

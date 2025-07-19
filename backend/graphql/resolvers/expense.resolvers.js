@@ -34,13 +34,14 @@ const expenseResolvers = {
             }
         },
 
-        dailyExpense: async (_, { userId }) => {
+        dailyExpense: async (_, { userId, targetDay }) => {
             try {
                 // Fetch all expenses for the user
                 const expenses = await Expense.find({ userId });
+                if (!expenses) return null
 
                 // Get today's and yesterday's date (normalized to local offset)
-                const today = DateOffset(); // Assumes helper returns local Date object
+                const today = new Date(targetDay) // Assumes helper returns local Date object
                 const yesterday = new Date(today);
                 yesterday.setDate(today.getDate() - 1);
 
@@ -269,6 +270,7 @@ const expenseResolvers = {
         monthlyReport: async (_, { userId, targetMonth }) => {
             try {
                 const report = await MonthlyReport.findOne({ userId, targetMonth })
+                if (!report) return null
                 return {
                     id: report._id.toString(),
                     ...report.toObject()
