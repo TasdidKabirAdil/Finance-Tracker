@@ -141,6 +141,4 @@ describe("User Graphql Query/Mutation", () => {
         expect(res.statusCode).toBe(200);
         expect(res.body.data.deleteUser).toBe(true);
     });
-
-
 })
